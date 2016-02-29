@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Para Pesquisa</string>
+    <string name="message_access_as">Access as</string>
+    <string name="text_server">Server</string>
+    <string name="text_username">User</string>
+    <string name="text_password">Password</string>
+    <string name="button_sign_in">Sign In</string>
+    <string name="message_network_error">Sorry, we couln\'t connect to server</string>
+    <string name="message_all_fields_required">All fields are required</string>
+    <string name="title_activity_coordinator_main">CoordinatorMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="text_my_surveys">My Surveys</string>
+    <string name="text_backup">Backup</string>
+    <string name="text_help">Help</string>
+    <string name="text_about_app">About Para Pesquisa</string>
+    <string name="text_sign_out">Sign Out</string>
+    <string name="text_from_dates">From %1$s to %2$s</string>
+    <string name="text_from">Since %s</string>
+    <string name="text_days_remaining">days remaining</string>
+    <string name="text_submissions_remaining">submissions remaining</string>
+    <string name="action_sync">Sync</string>
+    <string name="action_notifications">Notifications</string>
+    <string name="tab_all_submissions">All Submissions</string>
+    <string name="tab_pending_correction">Pending Correction</string>
+    <string name="tab_rescheduled">Rescheduled</string>
+    <string name="tab_cancelled">Cancelled</string>
+    <string name="tab_pending_approval">Waiting Approval</string>
+    <string name="tab_approved">Approved</string>
+    <string name="tab_waiting_sync">Waiting Sync</string>
+    <string name="text_submission">Submission</string>
+    <string name="text_approved">Approved</string>
+    <string name="text_pending_approve">Waiting approval</string>
+    <string name="text_rescheduled">Rescheduled</string>
+    <string name="text_cancelled">Cancelled</string>
+    <string name="text_pending_correction">Pending correction</string>
+    <string name="text_since">since %s</string>
+    <string name="text_on">on %s</string>
+    <string name="text_to">to %s</string>
+    <string name="text_remaining_surveys">/%d remaining surveys</string>
+    <string name="button_next">Next</string>
+    <string name="button_previous">Previous</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_send">Send</string>
+    <string name="text_private_field_disclaimer">This is a private field, it should be filled by the person being searched. Give the phone to the person and then ask them to tap Confirm.</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="text_other">Other…</string>
+    <string name="message_validation_required">This is a required field</string>
+    <string name="message_validation_out_of_range">The value is out of range</string>
+    <string name="message_internal_error">Oh no… We found an internal error!</string>
+    <string name="message_check_form_errors">There\'s pending items in the form</string>
+    <string name="message_please_wait">Please wait…</string>
+    <string name="message_private_answer">Private answer</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="title_select_option">Select an Option</string>
+    <string name="message_server_error">We coundn\'t found the server</string>
+    <string name="action_extra_data">Extra Data</string>
+    <string name="title_in_progress">In Progress</string>
+    <string name="text_new_submission">New submission</string>
+    <string name="atext_started_on">Started in %s</string>
+    <string name="message_sync_completed">Sync done</string>
+    <string name="title_reason_to_stop">Select a reason</string>
+    <string name="text_reschedule">Rescheduled</string>
+    <string name="title_cancel_submission">Cancel Submission</string>
+    <string name="message_cancel_submission">Are you sure to cancel this submission?</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="message_reschedule_submission">This submission was rescheduled to %s.</string>
+    <string name="title_send_submission">Finish and send</string>
+    <string name="message_send_submission_disclaimer">The submission will not be editable after sending, unless it is requested by the coordinator. Are you sure to proceed?</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_stop">Stop</string>
+    <string name="text_survey_in_progress">Submission in progress</string>
+    <string name="title_warning">Warning</string>
+    <string name="button_ok">OK</string>
+    <string name="message_survey_in_progress">You cannot start a new submission because you already have a submission in progress. You must reschedule or cancel the submission by tapping the STOP button within the form.</string>
+    <string name="message_submission_quota_excedeed">You don\'t have submissions to fill in this form</string>
+    <string name="text_in_progress">In progress</string>
+    <string name="text_waiting_sync">Waiting sync</string>
+    <string name="message_no_surveys">There\'s no submissions pending or done. You can start a new submission by tapping the corresponding button.</string>
+    <string name="title_reschedule_submission">Reschedule Submission</string>
+    <string name="text_powered_by">Powered by</string>
+    <string name="message_logout_warning">You can\'t logout your account when there is pending submissions sync with the server. Please make sure your tablet or smartphone is connected to the Internet and try sync again.</string>
+    <string name="message_expired_form">The deadline for this form is over</string>
+    <string name="message_not_started_form">This research can only be initiated on %1$s</string>
+    <string name="message_reschedule_date_is_before_now">Rescheduling must be for a later date</string>
+    <string name="message_reschedule_date_is_after_pub_end">Rescheduling must be before the form deadline</string>
+    <string name="action_report">Reports</string>
+    <string name="surveys">Surveys</string>
+    <string name="message_no_surveys_moderator">There\'s no submissions for this form</string>
+    <string name="submitted_by">Sent by %s</string>
+    <string name="message_sign_in_failed">Failed to sign in</string>
+    <string name="text_reject">Reject</string>
+    <string name="text_request_correction">Request\ncorrection</string>
+    <string name="text_approve">Approve</string>
+    <string name="message_invalid_value">Invalid value for this field</string>
+    <string name="title_add_comment">Add Comment</string>
+    <string name="button_done">Done</string>
+    <string name="title_approve_submission">Approve submission</string>
+    <string name="message_approve_submission_confirmation">Are you sure to approve this submission?</string>
+    <string name="title_reject_submission">Reject submission</string>
+    <string name="message_reject_submission_confirmation">Are you sure to reject this submission?</string>
+    <string name="title_correction_requested">Correction requested</string>
+    <string name="message_correction_requested">Submission status changed to Pending correction (%s)</string>
+    <string name="text_all_survey_takers">All survey takers</string>
+    <string name="message_no_comments">You cannot request correction without add any comment</string>
+    <string name="title_remove_comment">Remove comment</string>
+    <string name="message_remove_comment_confirmation">Are you sure want to remove this comment?</string>
+    <string name="title_edit_comment">Edit comment</string>
+    <string name="text_no_notifications">No notifications</string>
+    <string name="title_select_survey_taker">Select survey taker</string>
+    <string name="message_all_survey_takers">All survey takers (%d)</string>
+    <string name="message_search_surveys">Search surveys</string>
+    <string name="title_global_report">Global Report</string>
+    <string name="text_surveys_assigned_to_me">Surveys assigned to me</string>
+    <string name="text_individual_reports">Individual Reports</string>
+    <string name="text_survey_takers">Survey takers</string>
+    <string name="title_all_surveys_submissions">All Surveys Submissions</string>
+    <string name="text_total_goal">Total goal</string>
+    <string name="text_still_remaining">Still remaining</string>
+    <string name="title_report">Report</string>
+    <string name="text_remaining_days">Remaining days</string>
+    <string name="slash_separator" translatable="false"> / %1$s %2$s</string>
+
+    <string-array name="edit_mode">
+        <item>View</item>
+        <item>Edit</item>
+    </string-array>
+
+    <plurals name="new_forms_assigned">
+        <item quantity="one">A new form was assigned to you</item>
+        <item quantity="other">%d new forms were assigned to you</item>
+    </plurals>
+
+    <plurals name="forms_removed">
+        <item quantity="one">A form was removed by your moderator</item>
+        <item quantity="other">%d form were removed by your moderator</item>
+    </plurals>
+
+    <plurals name="approved_submissions">
+        <item quantity="one">A submission was approved for form %2$s</item>
+        <item quantity="other">%1$d submissions were approved for form %2$s</item>
+    </plurals>
+
+    <plurals name="waiting_correction_submissions">
+        <item quantity="one">There\'s a submission waiting for correction in form %2$s</item>
+        <item quantity="other">There\'s %1$d submissions waiting for correction in form %2$s</item>
+    </plurals>
+
+    <plurals name="waiting_approval_submissions">
+        <item quantity="one">There\'s a submission waiting for approval in form %2$s</item>
+        <item quantity="other">There\'s %1$d submissions waiting for approval in form %2$s</item>
+    </plurals>
+
+    <plurals name="reproved_submissions">
+        <item quantity="one">A submission were reproved for form %2$s</item>
+        <item quantity="other">%1$d submissions were reproved for form %2$s</item>
+    </plurals>
+
+    <string name="message_date_changed">The due date of form %1$s changed to %2$s</string>
+    <string name="message_quota_changed">Your submission quota for form %1$s changed to %2$d</string>
+    <string name="button_clear_notifications">Clear Notifications</string>
+    <string name="title_individual_reports">Individual Reports</string>
+    <string name="text_surveys_by">Submissions from %s</string>
+    <string name="title_transfer_submissions">Transfer submissions from</string>
+    <string name="title_user_is_going_to_cede">%s is going to cede</string>
+    <string name="title_transfer_to">Transfer to</string>
+    <string name="title_transfer_submissions_confirmation">Transfer submissions</string>
+    <string name="text_new_submissions_counter">Unfulfilled (%d)</string>
+    <string name="text_waiting_approval_submissions_counter">Waiting approval (%d)</string>
+    <string name="text_waiting_correction_submissions_counter">Waiting correction (%d)</string>
+    <string name="text_approved_submissions_counter">Approved (%d)</string>
+    <string name="text_cancelled_submissions_counter">Cancelled (%d)</string>
+    <string name="text_rescheduled_submissions_counter">Rescheduled (%d)</string>
+    <string name="text_all_submissions_counter">All submissions (%d)</string>
+    <string name="message_transfer_submissions">Are you sure to transfer all submissions from %1$s to %2$s?</string>
+    <string name="message_transfer_new_submissions">Are you sure to transfer all unfulfilled submissions from %1$s to %2$s?</string>
+    <string name="message_transfer_status_submissions">Are you sure to transfer all %1$s submissions from %2$s to %3$s?</string>
+    <string name="message_optional_feature">This feature can be not available in your survey. If this is the case, ignore this step.</string>
+
+    <string-array name="help_index_moderator">
+        <item>Access to the surveys</item>
+        <item>Reports</item>
+        <item>Accessing the overall report</item>
+        <item>What is the overall report?</item>
+        <item>Access to individual report</item>
+        <item>What is the individual report?</item>
+        <item>Coordinating a survey</item>
+        <item>Pending Approval</item>
+        <item>Start</item>
+        <item>Approving</item>
+        <item>Requesting correction</item>
+        <item>Commenting</item>
+        <item>Rejecting</item>
+        <item>Information</item>
+        <item>Connection lost</item>
+        <item>Survey takers</item>
+        <item>Transferring submissions</item>
+        <item>Start</item>
+        <item>Giving in</item>
+        <item>Transfer all</item>
+        <item>Transfer all remaining</item>
+        <item>Transfer all pending correction</item>
+        <item>Transferring rescheduled</item>
+        <item>Who receives</item>
+        <item>Submission search</item>
+        <item>Synchronization</item>
+        <item>Notifications</item>
+        <item>Para Pesquisa Menu</item>
+    </string-array>
+
+    <string-array name="help_index_survey_taker">
+        <item>Accessing the surveys</item>
+        <item>Performing a survey</item>
+        <item>New submission</item>
+        <item>Home</item>
+        <item>Identificator</item>
+        <item>Fullfilment</item>
+        <item>Send</item>
+        <item>Connection lost</item>
+        <item>Informations</item>
+        <item>Pausing</item>
+        <item>Paused</item>
+        <item>Reschedulement</item>
+        <item>Cancelling</item>
+        <item>Pending correction</item>
+        <item>Home</item>
+        <item>Questions for correction</item>
+        <item>Edit Mode</item>
+        <item>Comments</item>
+        <item>View mode</item>
+        <item>Submission search</item>
+        <item>Synchronization</item>
+        <item>Notifications</item>
+        <item>Para Pesquisa Menu</item>
+    </string-array>
+
+    <string-array name="help_text_survey_taker">
+        <item><![CDATA[<b>Select the search you want to work.</b> Stay tuned to the remaining number of submissions and the deadline for the completion of each survey.]]></item>
+        <item><![CDATA[<b>Keep track of your submissions.</b> You can see all the submissions into a single list from the most recent, or you can view by status, for this move the screen sideways.]]></item>
+        <item><![CDATA[<b>To start a new submission</b>, tap the <i>New submission</i> icon at the bottom bar. You can only fill a submission at a time.]]></item>
+        <item><![CDATA[<b>Select the identifier of your submission.</b> The identifier can be a code, address, locations, etc. Follow the instructions of his superior.]]></item>
+        <item><![CDATA[<b>Complete your submission paying attention to the required fields.</b> After completing each page, tap <i>Next</i> and continue filling up finish. You can resume the pages completed already playing <i>Previous</i>.]]></item>
+        <item><![CDATA[<b>When finished filling</b>, tap the <i>Send</i> icon. After sending, your submissionyou can go to the <i>Completed</i> status or the status <i>Pending Approval</i>, if you have a coordinator to validate their work. In this case, the coordinator can approve your submission or request correction.]]></item>
+        <item><![CDATA[<b>If you are not connected to a network, your submission will be pending synchronization</b>, ie, will not be sent until you have connection again. When connected again, tap the <i>Sync</i> icon.]]></item>
+        <item><![CDATA[<b>Tap the <i>Information</i> icon to view all available data submission.</b> You can access this function at any time during the fill.]]></item>
+        <item><![CDATA[<b>You can pause filling the submission playing the <i>Back</i> icon.</b> With its paused fill, you can browse through their research and lists of submissions, but can not start a new fill and edit or another submission.]]></item>
+        <item><![CDATA[<b>Touch <i>Continue</i> to return to fill.</b> If you need to start a new submission or editing any existing one, tap <i>Stop</i>. You will have to reschedule or cancel the submission that was in progress.]]></item>
+        <item><![CDATA[<b>To reschedule a submission</b>, tap the <i>Stop</i> icon, select one of the options available and indicate the date and / or time to make a new visit.]]></item>
+        <item><![CDATA[<b>To cancel a submission</b>, tap the <i>Stop</i> icon and select one of the reasons available for the cancellation.]]></item>
+        <item><![CDATA[<b>If your submission was not approved, you must correct the fields indicated by its coordinator and send to new validation.</b> When this happens, you will be notified that your submission is <i>Pending correction</i>.]]></item>
+        <item><![CDATA[<b>When opening a pending submission of correction, you will see a list of all the issues to be corrected.</b> Select the question by which to start the correction.]]></item>
+        <item><![CDATA[<b>After selecting the question, you will enter the <i>Edit</i> mode to change only the fields indicated by its coordinator.</b> You can go correcting question the issue or reopen the list of all the issues to correct and select the order you prefer. Remember to fix all the issues before sending back to its coordinator.]]></item>
+        <item><![CDATA[<b>For each question correct, there will be a review of its coordinator indicating what you should do.</b> Always read carefully to prevent a future patch.]]></item>
+        <item><![CDATA[<b>You can toggle the display of submission to the <i>View</i> mode.</b> This feature allows you to see your submission without the comments from your instructor, but you can not edit it.]]></item>
+        <item><![CDATA[<b>Use the search tool to find specific submissions.</b> Tap the <i>Search</i> icon and type the title of the submission are looking for.]]></item>
+        <item><![CDATA[<b>You can work even without connecting to a network, but can not send or receive submissions and updates.</b> To synchronize your submissions, tap the <i>Sync</i> icon.]]></item>
+        <item><![CDATA[Tap the <i>Notifications</i> icon to check the latest alerts and updates related to the progress of their research.]]></item>
+        <item><![CDATA[<b>In Para Pesquisa menu you can browse through <i>My Searches</i>, <i>Help</i>, <i>About Para Pesquisa</i> and can also leave your session.</b> When you leave, you will have to login again next access.]]></item>
+    </string-array>
+
+    <string-array name="help_text_moderator">
+        <item><![CDATA[<b>Select the search you want to work.</b> Stay tuned to the remaining number of submissions and the deadline for the completion of each survey.]]></item>
+        <item><![CDATA[<b>See the general progress of all research under their responsibility.</b> To access the Global Report, tap the <i>Report</i> icon in <i>My Searches</i>.]]></item>
+        <item><![CDATA[<b>You find the general data and total numbers of all research under their responsibility.</b> You can also search for individual reports to track the progress of each research in particular.]]></item>
+        <item><![CDATA[<b>See the specific progress of a search under their responsibility.</b> There are two ways to access an individual report. One is from the Global Report, touch <i>Individual Reports</i> and select the search. The other way is from the research already open, tap the <i>Report</i> icon located in the lower bar.]]></item>
+        <item><![CDATA[<b>You can find the statistics of the research presented by selected status submissions.</b> Watch the remainder of the submissions and the deadline for completion of the research.]]></item>
+        <item><![CDATA[<b>Track the progress of submissions received.</b> You can see all the submissions into a single list from the most recent, or you can view by status, for this move laterally screens.]]></item>
+        <item><![CDATA[<b>Each new incoming submission</b>, you should evaluate carefully and decide whether to approve, reject or request correction.]]></item>
+        <item><![CDATA[<b>After their analysis, all fields are OK, touch <i>Approve</i>.</b>]]></item>
+        <item><![CDATA[<b>If you notice errors in the completion, you need to request correction to the researcher who sent a submission.</b> For this, you must indicate by commenting what exactly the researcher must correct. Be clear to avoid doubts on the part of the researcher. After entering all necessary settings, tap <i>Request correction</i>, and the researcher will be informed.]]></item>
+        <item><![CDATA[<b>By identifying a field that needs to be fixed</b>, tap the Comment icon and describe the problem. After confirming the inclusion of the comment, you can edit or delete your comment.]]></item>
+        <item><![CDATA[<b>If the incoming submission is not appropriate for approval and not to fix</b>, you can reject it and the investigator must restart the filling. To do this, tap <i>Decline</i>.]]></item>
+        <item><![CDATA[<b>Tap the <i>Information</i> icon to view all available data submission.</b> You can access this function at any time during their evaluation.]]></item>
+        <item><![CDATA[<b>If you are not connected to a network, the submission will be pending synchronization</b>, ie, will not be sent until you have connection again. When connected again, tap the <i>Sync</i> icon.]]></item>
+        <item><![CDATA[<b>You can track the individual progress of each researcher under your responsibility.</b> To see the submissions of a specific researcher, tap the <i>Researchers</i> icon and select the desired person.]]></item>
+        <item><![CDATA[<b>You can transfer submissions of a researcher to another if you realize this need.</b> There are several options to transfer submissions from transfer everything to transfer specific submissions. If you want to transfer many submissions of a single researcher distributing their disputes to several researchers, you should do this for steps. Each researcher will receive submissions, you need to complete the transfer cycle individually.]]></item>
+        <item><![CDATA[<b>Select who will give submissions</b> and then choose which submissions you want to transfer.]]></item>
+        <item><![CDATA[<b>You can select <i>All other submissions</i> option.</b> It includes submissions not initiated, pending correction and rescheduled, if any. In this case, the transferor researcher will have no submission to fill.]]></item>
+        <item><![CDATA[<b>You can only transfer the submissions that the transferor did not start.</b> Select whether to transfer all remaining new or set a specific amount.]]></item>
+        <item><![CDATA[You can transfer all pending correction submissions or select specific submissions.]]></item>
+        <item><![CDATA[You can download all rescheduled submissions or select specific submissions.]]></item>
+        <item><![CDATA[<b>Finally, select who will receive submissions</b> and confirm.]]></item>
+        <item><![CDATA[<b>Use the search tool to find specific submissions.</b> Tap the <i>Search</i> icon and type the title of the submission that you seek.]]></item>
+        <item><![CDATA[<b>You can work even without connecting to a network, but can not send or receive submissions and updates.</b> To synchronize your submissions, tap the <i>Sync</i> icon.]]></item>
+        <item><![CDATA[Tap the Notifications icon to check the latest alerts and updates related to the progress of their research.]]></item>`
+        <item><![CDATA[<b>In Para Pesquisa menu you can browse through <i>My Searches</i>, <i>Help</i>, <i>About Para Pesquisa</i> and can also leave your session.</b> When you leave, you will have to login again next access.]]></item>
+    </string-array>
+    <string name="title_fields_with_peding_correction">Fields or question with pending correction</string>
+
+</resources>

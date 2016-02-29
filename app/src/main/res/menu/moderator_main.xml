@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_report"
+        android:icon="@drawable/ic_action_view_report"
+        android:showAsAction="always"
+        android:title="@string/title_global_report"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_sync"
+        android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="always"
+        android:title="@string/action_sync"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_notifications"
+        android:actionLayout="@layout/menu_notification"
+        android:icon="@drawable/ic_action_notifications"
+        android:showAsAction="always"
+        android:title="@string/action_notifications"
+        app:actionLayout="@layout/menu_notification"
+        app:showAsAction="always" />
+
+</menu>

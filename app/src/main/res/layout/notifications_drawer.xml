@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/notification_drawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:background="@android:color/white"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/notification_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/text_no_notifications" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/clear_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:text="@string/button_clear_notifications"
+            android:textColor="@android:color/white"
+            android:theme="@style/AppTheme.Button.Primary" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/notifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/clear_notifications" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,83 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.org.institutotim.parapesquisa">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".ParaPesquisaApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SubmissionViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ExtraDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.GlobalReportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FormReportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AgentMainActivity"
+            android:label="@string/surveys"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentBar" />
+        <activity
+            android:name=".ui.activity.AgentFormActivity"
+            android:label="@string/surveys"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AgentSubmissionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AgentSubmissionCorrectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ModeratorMainActivity"
+            android:label="@string/surveys"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentBar" />
+        <activity
+            android:name=".ui.activity.ModeratorSubmissionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ModeratorSubmissionApprovalActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".service.AgentUpdateService"
+            android:exported="false" />
+
+        <service
+            android:name=".service.ModeratorUpdateService"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="b4e65954c5311e9478b811354a85bab993be65d6" />
+
+    </application>
+
+</manifest>

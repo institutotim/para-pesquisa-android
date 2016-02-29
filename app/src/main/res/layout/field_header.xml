@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/number"
+            android:layout_toStartOf="@+id/number"
+            android:textColor="@color/color_7" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:textColor="@color/color_7" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/validation_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/error"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/error"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="@string/message_validation_required"
+        android:textColor="@color/color_15"
+        android:visibility="gone" />
+
+</LinearLayout>

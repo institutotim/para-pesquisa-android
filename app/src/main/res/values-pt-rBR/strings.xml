@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Para Pesquisa</string>
+    <string name="message_access_as">Acessar como</string>
+    <string name="text_server">Servidor</string>
+    <string name="text_username">Usuário</string>
+    <string name="text_password">Senha</string>
+    <string name="button_sign_in">Login</string>
+    <string name="message_network_error">Desculpe, não foi possível se comunicar com o servidor</string>
+    <string name="message_all_fields_required">É necessário preencher todos os campos</string>
+    <string name="title_activity_coordinator_main">CoordinatorMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="text_my_surveys">Minhas Pesquisas</string>
+    <string name="text_backup">Backup</string>
+    <string name="text_help">Ajuda</string>
+    <string name="text_about_app">Sobre o Para Pesquisa</string>
+    <string name="text_sign_out">Logout</string>
+    <string name="text_from_dates">De %1$s a %2$s</string>
+    <string name="text_from">A partir de %s</string>
+    <string name="text_days_remaining">dias restantes</string>
+    <string name="text_submissions_remaining">pesquisas restantes</string>
+    <string name="action_sync">Sincronizar</string>
+    <string name="action_notifications">Notificações</string>
+    <string name="tab_all_submissions">Todos os Envios</string>
+    <string name="tab_pending_correction">Correção Pendente</string>
+    <string name="tab_rescheduled">Reagendado</string>
+    <string name="tab_cancelled">Cancelado</string>
+    <string name="tab_pending_approval">Aguardando Aprovação</string>
+    <string name="tab_approved">Aprovado</string>
+    <string name="tab_waiting_sync">Aguardando sincronização</string>
+    <string name="text_submission">Submissão</string>
+    <string name="text_approved">Aprovado</string>
+    <string name="text_pending_approve">Aguardando aprovação</string>
+    <string name="text_rescheduled">Reagendado</string>
+    <string name="text_cancelled">Cancelado</string>
+    <string name="text_pending_correction">Correção pendente</string>
+    <string name="text_since">desde %s</string>
+    <string name="text_on">em %s</string>
+    <string name="text_to">para %s</string>
+    <string name="text_remaining_surveys">/%d pesquisas restantes</string>
+    <string name="button_next">Próximo</string>
+    <string name="button_previous">Anterior</string>
+    <string name="action_stop">Parar</string>
+    <string name="action_send">Enviar</string>
+    <string name="text_private_field_disclaimer">Este campo é privado, ele deve ser preenchido pela pessoa que está sendo pesquisada. Dê o aparelho para a pessoa preencher este item e peça para ela clicar no botão Confirmar.</string>
+    <string name="button_confirm">Confirmar</string>
+    <string name="text_other">Outro…</string>
+    <string name="message_validation_required">Este campo deve ser preenchido</string>
+    <string name="message_validation_out_of_range">O valor inserido está fora da faixa de valores válidos</string>
+    <string name="message_internal_error">Ops… Ocorreu um erro interno</string>
+    <string name="message_check_form_errors">Existem pendências no formulário</string>
+    <string name="message_please_wait">Por favor, aguarde…</string>
+    <string name="message_private_answer">Resposta privada</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="title_select_option">Selecione uma Opção</string>
+    <string name="message_server_error">Não foi possível estabelecer a comunicação com o servidor</string>
+    <string name="action_extra_data">Dados Extras</string>
+    <string name="title_in_progress">Em Andamento</string>
+    <string name="text_new_submission">Nova submissão</string>
+    <string name="atext_started_on">Iniciada em %s</string>
+    <string name="message_sync_completed">Sincronização concluída</string>
+    <string name="title_reason_to_stop">Selecione o motivo</string>
+    <string name="text_reschedule">Reagendado</string>
+    <string name="title_cancel_submission">Cancelar Submissão</string>
+    <string name="message_cancel_submission">Tem certeza que deseja cancelar esta submissão?</string>
+    <string name="button_yes">Sim</string>
+    <string name="button_no">Não</string>
+    <string name="message_reschedule_submission">Esta submissão será reagendada para %s.</string>
+    <string name="title_send_submission">Concluir e enviar</string>
+    <string name="message_send_submission_disclaimer">A submissão não será editável após o envio, a não ser que seja requisitado pelo coordenador. Tem certeza que deseja prosseguir?</string>
+    <string name="button_continue">Continuar</string>
+    <string name="button_stop">Parar</string>
+    <string name="text_survey_in_progress">Pesquisa em andamento</string>
+    <string name="title_warning">Aviso</string>
+    <string name="button_ok">OK</string>
+    <string name="message_survey_in_progress">Você não pode iniciar uma nova pesquisa porque já possui uma pesquisa em andamento. Você deve reagendar ou cancelar a pesquisa tocando no botão PARAR dentro do formulário.</string>
+    <string name="message_submission_quota_excedeed">Você não possui pesquisas para preencher neste formulário</string>
+    <string name="text_in_progress">Em andamento</string>
+    <string name="text_waiting_sync">Aguardando sincronização</string>
+    <string name="message_no_surveys">Não existe nenhuma pesquisa realizada ou pendente. Você pode iniciar uma nova pesquisa tocando no botão correspondente.</string>
+    <string name="title_reschedule_submission">Reagendar submissão</string>
+    <string name="text_powered_by">Powered by</string>
+    <string name="message_logout_warning">Você não pode deslogar sua conta do aplicativo quando existe pesquisa pendentes de sincronização com o servidor. Por favor, certifique-se que seu tablet ou smartphone esteja conectado na internet e faça a sincronização.</string>
+    <string name="message_expired_form">O prazo para realização da pesquisa já acabou</string>
+    <string name="message_not_started_form">Esta pesquisa só poderá ser iniciada dia %1$s</string>
+    <string name="message_reschedule_date_is_before_now">O reagendamento deve ser para uma data posterior</string>
+    <string name="message_reschedule_date_is_after_pub_end">O reagendamento deve ser antes do fim da pesquisa</string>
+    <string name="action_report">Relatórios</string>
+    <string name="surveys">Pesquisas</string>
+    <string name="message_no_surveys_moderator">Não existe nenhuma pesquisa realizada para este formulário</string>
+    <string name="submitted_by">Enviado por %s</string>
+    <string name="message_sign_in_failed">Não foi possível efetuar o login</string>
+    <string name="text_reject">Rejeitar</string>
+    <string name="text_request_correction">Requisitar\ncorreção</string>
+    <string name="text_approve">Aprovar</string>
+    <string name="message_invalid_value">Valor inválido para esse tipo de campo</string>
+    <string name="title_add_comment">Adicionar Comentário</string>
+    <string name="button_done">Pronto</string>
+    <string name="title_approve_submission">Aprovar submissão</string>
+    <string name="message_approve_submission_confirmation">Tem certeza de que deseja aprovar esta submissão?</string>
+    <string name="title_reject_submission">Rejeitar submissão</string>
+    <string name="message_reject_submission_confirmation">Tem certeza de que deseja rejeitar esta submissão?</string>
+    <string name="title_correction_requested">Correção requisitada</string>
+    <string name="message_correction_requested">Status da submissão alterado para Correção pendente (%s)</string>
+    <string name="text_all_survey_takers">Todos os pesquisadores</string>
+    <string name="message_no_comments">Não é possível solicitar correções sem adicionar nenhum comentário</string>
+    <string name="title_remove_comment">Remover comentário</string>
+    <string name="message_remove_comment_confirmation">Tem certeza de que deseja remover este comentário?</string>
+    <string name="title_edit_comment">Editar comentário</string>
+    <string name="text_no_notifications">Nenhuma notificação</string>
+    <string name="title_select_survey_taker">Selecione o pesquisador</string>
+    <string name="message_all_survey_takers">Todos os pesquisadores (%d)</string>
+    <string name="message_search_surveys">Buscar pesquisas</string>
+    <string name="title_global_report">Relatório Global</string>
+
+    <string-array name="edit_mode">
+        <item>Visualizar</item>
+        <item>Editar</item>
+    </string-array>
+
+    <string name="text_individual_reports">Relatórios Individuais</string>
+    <string name="text_still_remaining">Restantes</string>
+    <string name="text_survey_takers">Pesquisadores</string>
+    <string name="text_surveys_assigned_to_me">Pesquisas atribuídas a mim</string>
+    <string name="text_total_goal">Meta total</string>
+    <string name="title_all_surveys_submissions">Todas as Submissões</string>
+    <string name="title_report">Relatório</string>
+
+    <plurals name="new_forms_assigned">
+        <item quantity="one">Um novo formulário foi atribuído a você</item>
+        <item quantity="other">%d novos formulários foram atribuídos a você</item>
+    </plurals>
+
+    <plurals name="forms_removed">
+        <item quantity="one">Um formulário foi removido pelo coordenador</item>
+        <item quantity="other">%d formulários foram removidos pelo coordenador</item>
+    </plurals>
+
+    <plurals name="approved_submissions">
+        <item quantity="one">Uma submissão foi aprovada para o formulário %2$s</item>
+        <item quantity="other">%1$d submissões foram aprovadas para o formulário %2$s</item>
+    </plurals>
+
+    <plurals name="waiting_correction_submissions">
+        <item quantity="one">Existe uma submissão aguardando correção no formulário %2$s</item>
+        <item quantity="other">Existem %1$d submissões aguardando correção no formulário %2$s</item>
+    </plurals>
+
+    <plurals name="waiting_approval_submissions">
+        <item quantity="one">Existe uma submissão aguardando aprovação no formulário %2$s</item>
+        <item quantity="other">Existem %1$d submissões aguardando aprovação no formulário %2$s</item>
+    </plurals>
+
+    <plurals name="reproved_submissions">
+        <item quantity="one">Uma submissão foi reprovada para o formulário %2$s</item>
+        <item quantity="other">%1$d submissões foram reprovadas para o formulário %2$s</item>
+    </plurals>
+
+    <string name="message_date_changed">A data de encerramento do formulário %1$s mudou para %2$s</string>
+    <string name="message_quota_changed">A quantidade de pesquisas para o formulário %1$s mudou para %2$d</string>
+    <string name="button_clear_notifications">Limpar Notificações</string>
+    <string name="title_individual_reports">Relatórios individuais</string>
+    <string name="text_remaining_days">Dias restantes</string>
+    <string name="text_surveys_by">Submissões de %s</string>
+    <string name="title_transfer_submissions">Transferir submissões de</string>
+    <string name="title_user_is_going_to_cede">%s cederá quais pesquisas?</string>
+    <string name="title_transfer_submissions_confirmation">Transferir submissões</string>
+    <string name="title_transfer_to">Transferir para</string>
+    <string name="text_waiting_approval_submissions_counter">Aguardando aprovação (%d)</string>
+    <string name="text_waiting_correction_submissions_counter">Aguardando correção (%d)</string>
+    <string name="text_rescheduled_submissions_counter">Reagendadas (%d)</string>
+    <string name="text_new_submissions_counter">Não realizadas (%d)</string>
+    <string name="text_cancelled_submissions_counter">Canceladas (%d)</string>
+    <string name="text_all_submissions_counter">Todas as submissões (%d)</string>
+    <string name="text_approved_submissions_counter">Aprovadas (%d)</string>
+    <string name="message_transfer_new_submissions">Tem certeza de que deseja transferir todas as pesquisas não realizadas de %1$s para %2$s?</string>
+    <string name="message_transfer_status_submissions">Tem certeza de que deseja transferir todas as submissões %1$s de %2$s para %3$s?</string>
+    <string name="message_transfer_submissions">Tem certeza de que deseja transferir todas as submissões de %1$s para %2$s?</string>
+
+    <string-array name="help_index_moderator">
+        <item>Acesso às pesquisas</item>
+        <item>Relatórios</item>
+        <item>Acesso ao relatório global</item>
+        <item>Para que serve o relatório global</item>
+        <item>Acesso ao relatório individual</item>
+        <item>Para que serve o relatório individual</item>
+        <item>Coordenando uma pesquisa</item>
+        <item>Aprovação pendente</item>
+        <item>Início</item>
+        <item>Aprovar</item>
+        <item>Solicitar correção</item>
+        <item>Comentar</item>
+        <item>Rejeitar</item>
+        <item>Informações</item>
+        <item>Perda de conexão</item>
+        <item>Pesquisadores</item>
+        <item>Transferir submissões</item>
+        <item>Início</item>
+        <item>Quem cede</item>
+        <item>Transferir tudo</item>
+        <item>Transferir novas restantes</item>
+        <item>Transferir pendentes de correção</item>
+        <item>Transferir reagendadas</item>
+        <item>Quem recebe</item>
+        <item>Buscar submissão</item>
+        <item>Sincronizar</item>
+        <item>Notificações</item>
+        <item>Menu do Para Pesquisa</item>
+    </string-array>
+
+    <string-array name="help_index_survey_taker">
+        <item>Acesso às pesquisas</item>
+        <item>Realizando uma pesquisa</item>
+        <item>Nova submissão</item>
+        <item>Início</item>
+        <item>Identificador</item>
+        <item>Preenchimento</item>
+        <item>Envio</item>
+        <item>Perda de conexão</item>
+        <item>Informações</item>
+        <item>Pausar</item>
+        <item>Pausado</item>
+        <item>Reagendamento</item>
+        <item>Cancelamento</item>
+        <item>Correção pendente</item>
+        <item>Início</item>
+        <item>Questões para corrigir</item>
+        <item>Modo Editar</item>
+        <item>Comentários</item>
+        <item>Modo Visualizar</item>
+        <item>Buscar submissão</item>
+        <item>Sincronizar</item>
+        <item>Notificações</item>
+        <item>Menu do Para Pesquisa</item>
+    </string-array>
+
+    <string-array name="help_text_survey_taker">
+        <item><![CDATA[<b>Selecione a pesquisa em que deseja trabalhar.</b> Fique atento ao número de submissões restantes e ao prazo para o término de cada pesquisa.]]></item>
+        <item><![CDATA[<b>Acompanhe suas submissões.</b> Você pode ver todas as submissões em uma listagem única a partir da mais recente ou pode visualizar por status, para isso mova as telas lateralmente.]]></item>
+        <item><![CDATA[<b>Para iniciar um nova submissão</b>, toque no ícone <i>Nova submissão</i> localizado na barra inferior. Você só pode preencher uma submissão por vez.]]></item>
+        <item><![CDATA[<b>Selecione o identificador da sua submissão.</b> O identificador pode ser um código, endereço, localidades etc. Siga as instruções de seu superior.]]></item>
+        <item><![CDATA[<b>Complete sua submissão atentando aos campos obrigatórios.</b> Após concluir cada página, toque em <i>Próximo</i> e continue o preenchimento até concluir. Você pode retomar às paginas já completadas tocando em <i>Anterior</i>.]]></item>
+        <item><![CDATA[<b>Ao terminar o preenchimento,</b> toque no ícone <i>Enviar</i>. Após o envio, sua submissão poderá passar ao status <i>Concluído</i> ou ao status <i>Pendente de Aprovação</i>, caso você tenha um coordenador para validar seu trabalho. Neste caso, o coordenador pode aprovar sua submissão ou solicitar correção.]]></item>
+        <item><![CDATA[<b>Caso você não esteja conectado a uma rede, sua submissão ficará pendente de sincronização</b>, ou seja, não sera enviada até que você tenha conexão novamente. Quando estiver novamente conectado, toque no ícone Sincronizar.]]></item>
+        <item><![CDATA[<b>Toque no ícone <i>Informações</i> para visualizar todos os dados disponíveis da submissão.</b> Você pode acessar esta função a qualquer momento durante o preenchimento.]]></item>
+        <item><![CDATA[<b>Você pode pausar o preenchimento da submissão tocando no ícone <i>Voltar</i>.</b> Com seu preenchimento pausado, você pode navegar por suas pesquisas e listagens de submissões, mas não poderá iniciar um novo preenchimento e nem editar uma outra submissão.]]></item>
+        <item><![CDATA[<b>Toque em <i>Continuar</i> para retornar ao preenchimento.</b> Caso precise iniciar uma nova submissão ou editar alguma existente, toque em Parar. Você terá que reagendar ou cancelar a submissão que estava em andamento.]]></item>
+        <item><![CDATA[<b>Para reagendar uma submissão</b>, toque no ícone <i>Parar</i>, selecione uma das opções disponíveis e indique a data e/ou horário para fazer uma nova visita.]]></item>
+        <item><![CDATA[<b>Para cancelar uma submissão</b>, toque no ícone <i>Parar</i> e selecione uma das razões disponíveis para o cancelamento.]]></item>
+        <item><![CDATA[<b>Caso sua submissão não tenha sido aprovada, você deve corrigir os campos indicados pelo seu coordenador e enviar para nova validação.</b> Quando isso acontecer, você será notificado que a sua submissão está <i>Pendente de correção</i>.]]></item>
+        <item><![CDATA[<b>Ao abrir uma submissão pendente de correção, você verá uma lista de todas as questões a serem corrigidas.</b> Selecione a questão pela qual deseja iniciar a correção.]]></item>
+        <item><![CDATA[<b>Após selecionada a questão, você entrará no modo <i>Editar</i> para alterar somente os campos indicados pelo seu coordenador.</b> Você pode ir corrigindo questão a questão ou abrir novamente a lista com todas as questões para corrigir e selecionar na ordem de sua preferência. Lembre-se de corrigir todas as questões antes de enviar novamente para seu coordenador.]]></item>
+        <item><![CDATA[<b>Em cada questão a corrigir, haverá um comentário do seu coordenador indicando o que você deve fazer.</b> Leia sempre com atenção para evitar uma nova correção futuramente.]]></item>
+        <item><![CDATA[<b>Você pode alternar a exibição da submissão para o modo <i>Visualizar</i>.</b> Este recurso permite que você veja sua submissão sem os comentários do seu coordenador, mas você não pode editá-la.]]></item>
+        <item><![CDATA[<b>Utilize a ferramenta de busca para localizar submissões específicas.</b> Toque no ícone <i>Buscar</i> e digite o título da submissão que procura.]]></item>
+        <item><![CDATA[<b>Você pode trabalhar mesmo sem conexão a uma rede, mas não poderá enviar submissões e nem receber atualizações.</b> Para sincronizar suas submissões, toque no ícone <i>Sincronizar</i>.]]></item>
+        <item><![CDATA[Toque no ícone <i>Notificações</i> para checar os últimos alertas e atualizações relacionados ao andamento de suas pesquisas.]]></item>
+        <item><![CDATA[<b>No menu do Para Pesquisa você pode navegar por <i>Minhas Pesquisas</i>, <i>Ajuda</i>, <i>Sobre o Para Pesquisa</i> e também pode sair da sua sessão.</b> Ao sair, você terá que efetuar o login novamente no próximo acesso.]]></item>
+    </string-array>
+
+    <string-array name="help_text_moderator">
+        <item><![CDATA[<b>Selecione a pesquisa em que deseja trabalhar.</b> Fique atento ao número de submissões restantes e ao prazo para o término de cada pesquisa.]]></item>
+        <item><![CDATA[<b>Veja o andamento geral de todas as pesquisas sob sua responsabilidade.</b> Para acessar o Relatório Global, toque no ícone <i>Relatório</i> em <i>Minhas Pesquisas</i>.]]></item>
+        <item><![CDATA[<b>Você encontra os dados gerais e números totais de todas as pesquisas sob sua responsabilidade.</b> Você também pode buscar pelos relatórios individuais para acompanhar o andamento de cada pesquisa em específico.]]></item>
+        <item><![CDATA[<b>Veja o andamento específico de uma pesquisa sob sua responsabilidade.</b> Há dois jeitos de acessar um relatório individual. Um deles é a partir do Relatório Global, toque em <i>Relatórios Individuais</i> e selecione a pesquisa. O outro jeito é a partir da pesquisa já aberta, toque no ícone <i>Relatório</i> localizado no centro da barra inferior.]]></item>
+        <item><![CDATA[<b>Você encontra as estatísticas das submissões da pesquisa selecionada apresentadas por status.</b> Atente à quantidade de submissões restante e ao prazo para o término da pesquisa.]]></item>
+        <item><![CDATA[<b>Acompanhe o andamento das submissões recebidas.</b> Você pode ver todas as submissões em uma listagem única a partir da mais recente ou pode visualizar por status, para isso mova as telas lateralmente.]]></item>
+        <item><![CDATA[<b>A cada nova submissão recebida</b>, você deve avaliar com atenção e decidir se vai aprovar, solicitar correção ou rejeitar.]]></item>
+        <item><![CDATA[<b>Após sua análise, se todos os campos estiverem OK, toque em <i>Aprovar</i>.</b>]]></item>
+        <item><![CDATA[<b>Caso você perceba falhas no preenchimento, você precisa solicitar correção ao pesquisador que enviou a submissão.</b> Para isso, você deve indicar por meio de comentários o que exatamente o pesquisador deve corrigir. Seja claro para evitar dúvidas por parte do pesquisador. Após indicar todos os ajustes necessário, toque em <i>Solicitar correção</i>, e o pesquisador será informado.]]></item>
+        <item><![CDATA[<b>Ao identificar um campo que precisa ser corrigido</b>, toque no ícone <i>Comentar</i> e descreva o problema. Após confirmar a inclusão do comentário, você pode editar ou excluir seu comentário.]]></item>
+        <item><![CDATA[<b>Caso a submissão recebida não esteja apropriado para aprovação e nem para correção</b>, você pode rejeitá-la e o pesquisador deverá iniciar novamente o preenchimento. Para isso, toque em <i>Rejeitar</i>.]]></item>
+        <item><![CDATA[<b>Toque no ícone <i>Informações</i> para visualizar todos os dados disponíveis da submissão.</b>  Você pode acessar esta função a qualquer momento durante a sua avaliação.]]></item>
+        <item><![CDATA[<b>Caso você não esteja conectado a uma rede, a submissão ficará pendente de sincronização</b> , ou seja, não será enviada até que você tenha conexão novamente. Quando estiver novamente conectado, toque no ícone <i>Sincronizar</i>.]]></item>
+        <item><![CDATA[<b>Você pode acompanhar o andamento individual de cada pesquisador sob sua responsabilidade.</b> Para ver as submissões de um pesquisador específico, toque no ícone Pesquisadores e selecione a pessoa desejada.]]></item>
+        <item><![CDATA[<b>Você pode transferir submissões de um pesquisador a outro caso perceba esta necessidade.</b> Há várias opções para transferir submissões, desde transferir tudo a transferir submissões específicas. Caso você queira transferir muitas submissões de um único pesquisador distribuindo suas pendências para vários pesquisadores, você deverá realizar esta operação por etapas. A cada pesquisador que irá receber submissões, você precisa completar o ciclo de transferência individualmente.]]></item>
+        <item><![CDATA[<b>Selecione quem irá ceder submissões</b> e em seguida escolha quais submissões você deseja transferir.]]></item>
+        <item><![CDATA[<b>Você pode selecionar a opção <i>Todas as submissões restantes</i>.</b> Ela inclui as submissões não iniciadas, pendentes de correção e as reagendadas, se houverem. Neste caso, o pesquisador cedente não terá mais nenhuma submissão a preencher.]]></item>
+        <item><![CDATA[<b>Você pode transferir somente as submissões que o cedente não iniciou.</b> Selecione se deseja transferir todas as novas restantes, ou especifique uma quantidade específica.]]></item>
+        <item><![CDATA[Você pode transferir todas as submissões pendentes de correção ou selecionar submissões específicas.]]></item>
+        <item><![CDATA[Você pode transferir todas as submissões reagendadas ou selecionar submissões específicas.]]></item>
+        <item><![CDATA[<b>Por fim, selecione quem irá receber as submissões</b> e confirme.]]></item>
+        <item><![CDATA[<b>Utilize a ferramenta de busca para localizar submissões específicas.</b> Toque no ícone <i>Buscar</i> e digite o título da submissão que procura.]]></item>
+        <item><![CDATA[<b>Você pode trabalhar mesmo sem conexão a uma rede, mas não poderá enviar submissões e nem receber atualizações.</b> Para sincronizar suas submissões, toque no ícone <i>Sincronizar</i>.]]></item>
+        <item><![CDATA[Toque no ícone <i>Notificações</i> para checar os últimos alertas e atualizações relacionados ao andamento de suas pesquisas.]]></item>
+        <item><![CDATA[<b>No menu do Para Pesquisa você pode navegar por <i>Minhas Pesquisas</i>, <i>Ajuda</i>, <i>Sobre o Para Pesquisa</i> e também pode sair da sua sessão.</b> Ao sair, você terá que efetuar o login novamente no próximo acesso.]]></item>
+    </string-array>
+    <string name="message_optional_feature">Esta funcionalidade pode não constar na sua pesquisa. Se este for o caso, desconsidere esta etapa.</string>
+    <string name="title_fields_with_peding_correction">Campos ou questões para corrigir</string>
+</resources>

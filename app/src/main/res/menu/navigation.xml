@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/my_surveys"
+            android:icon="@drawable/sidebar_mysurveys_icon_normal"
+            android:title="@string/text_my_surveys" />
+        <item
+            android:id="@+id/help"
+            android:icon="@drawable/sidebar_help_icon_normal"
+            android:title="@string/text_help" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/sidebar_about_icon_normal"
+            android:title="@string/text_about_app" />
+    </group>
+
+    <item android:title="@string/text_sign_out">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/sidebar_logout_icon_normal"
+                android:title="@string/text_sign_out" />
+        </menu>
+    </item>
+
+</menu>
