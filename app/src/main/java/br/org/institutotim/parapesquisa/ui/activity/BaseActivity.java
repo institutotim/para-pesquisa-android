@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         try {
             EventBus.getDefault().register(this);
         } catch (Exception e) {
-            Timber.d("This class doesn't have onEvent() methods");
+            Timber.d("This class doesn't have onEvent() methods: class " + getLocalClassName() );
         }
     }
 

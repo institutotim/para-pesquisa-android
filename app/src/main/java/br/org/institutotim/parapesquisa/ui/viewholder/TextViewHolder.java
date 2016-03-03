@@ -3,6 +3,7 @@ package br.org.institutotim.parapesquisa.ui.viewholder;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -29,6 +30,8 @@ public class TextViewHolder extends BaseViewHolder {
 
         if (answer != null) {
             this.field.setText(answer.getValues());
+        } else {
+            this.field.setText(null);
         }
 
         this.field.addTextChangedListener(new TextWatcher() {

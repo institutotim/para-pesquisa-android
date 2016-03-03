@@ -140,6 +140,6 @@ public class UiModule {
 
     @Provides
     public ModeratorSubmissionAdapter provideModeratorSubmissionAdapter(Application app, ParaPesquisaOpenHelper helper) {
-        return new ModeratorSubmissionAdapter(app);
+        return new ModeratorSubmissionAdapter(app, helper);
     }
 }

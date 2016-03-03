@@ -60,7 +60,7 @@ public class SubmissionHelper {
         return extractAnswersBySections(timestamp, answers, submission, null);
     }
 
-    public UserSubmission extractAnswersBySections(Date timestamp,  List<Answer> answers, @Nullable UserSubmission submission,
+    public UserSubmission extractAnswersBySections(Date timestamp, List<Answer> answers, @Nullable UserSubmission submission,
                                                    @Nullable Integer currentPage) {
 
         if (submission != null && submission.getAnswers() != null && !submission.getAnswers().isEmpty()) {
@@ -76,18 +76,19 @@ public class SubmissionHelper {
     }
 
     private int getAnswerPosition(List<Answer> answers, Answer answered) {
+        if (answered == null) {
+            return -1;
+        }
         for (int i = 0; i < answers.size(); i++) {
             final Answer answer = answers.get(i);
-            if (answer != null) {
-                if (answer.getFieldId() == answered.getFieldId())
-                    return i;
-            }
+            if (answer != null && answer.getFieldId() == answered.getFieldId())
+                return i;
         }
         return -1;
     }
 
     public UserSubmission generateUserSubmission(Date timestamp, List<Answer> answers, @Nullable UserSubmission submission,
-                                         @Nullable Integer currentPage) {
+                                                 @Nullable Integer currentPage) {
         List<SubmissionLog> logs = new ArrayList<>();
         logs.add(SubmissionLog.builder()
                 .when(new DateTime(timestamp))
@@ -95,7 +96,7 @@ public class SubmissionHelper {
 
         return UserSubmission.builder()
                 .answers(answers)
-                .id(submission != null && submission.getId() != null ? submission.getId() : null)
+                .id(submission != null ? submission.getId() : null)
                 .log(logs)
                 .currentPage(currentPage)
                 .build();

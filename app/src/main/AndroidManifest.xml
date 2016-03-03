@@ -74,10 +74,6 @@
             android:name=".service.ModeratorUpdateService"
             android:exported="false" />
 
-        <meta-data
-            android:name="com.crashlytics.ApiKey"
-            android:value="b4e65954c5311e9478b811354a85bab993be65d6" />
-
     </application>
 
 </manifest>

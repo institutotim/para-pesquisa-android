@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.org.institutotim.parapesquisa.R;
+import br.org.institutotim.parapesquisa.data.db.ParaPesquisaOpenHelper;
 import br.org.institutotim.parapesquisa.data.model.SubmissionLog;
 import br.org.institutotim.parapesquisa.data.model.SubmissionLogAction;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
@@ -29,8 +30,11 @@ public class ModeratorSubmissionAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<UserSubmission> mSubmissions;
     private boolean showLoading = true;
 
-    public ModeratorSubmissionAdapter(Context context) {
+    private ParaPesquisaOpenHelper mHelper;
+
+    public ModeratorSubmissionAdapter(Context context, ParaPesquisaOpenHelper helper) {
         mContext = context;
+        mHelper = helper;
     }
 
     @Override
@@ -67,16 +71,25 @@ public class ModeratorSubmissionAdapter extends RecyclerView.Adapter<RecyclerVie
 
             String statusText, date = null;
             int color = 0;
+            boolean isWaitingSync = false;
 
-            if (submission.getInProgress() != null && submission.getInProgress()) {
-                holder.statusImage.setImageResource(R.drawable.inprogress_survey);
-                color = ContextCompat.getColor(mContext, R.color.color_14);
-                statusText = mContext.getString(R.string.text_in_progress);
-                date = " " + mContext.getString(R.string.text_since, when);
-            } else if (submission.getStatus() == null) {
+            List<UserSubmission> pendingSubmissions = mHelper.getPendingSubmissions(submission.getFormId());
+            for (UserSubmission pendingSubmission : pendingSubmissions) {
+                if (pendingSubmission.getId().equals(submission.getId())) {
+                    isWaitingSync = true;
+                    break;
+                }
+            }
+
+            if (isWaitingSync || submission.getStatus() == null) {
                 holder.statusImage.setImageResource(R.drawable.syncpending_survey);
                 color = ContextCompat.getColor(mContext, R.color.color_2);
                 statusText = mContext.getString(R.string.text_waiting_sync);
+                date = " " + mContext.getString(R.string.text_since, when);
+            } else if (submission.getInProgress() != null && submission.getInProgress()) {
+                holder.statusImage.setImageResource(R.drawable.inprogress_survey);
+                color = ContextCompat.getColor(mContext, R.color.color_14);
+                statusText = mContext.getString(R.string.text_in_progress);
                 date = " " + mContext.getString(R.string.text_since, when);
             } else {
                 switch (submission.getStatus()) {
@@ -114,6 +127,7 @@ public class ModeratorSubmissionAdapter extends RecyclerView.Adapter<RecyclerVie
                         break;
                     default:
                         statusText = "";
+                        date = " " + mContext.getString(R.string.text_since, when);
                         break;
                 }
             }

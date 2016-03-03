@@ -7,7 +7,6 @@ import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
-import com.crashlytics.android.Crashlytics;
 import com.squareup.okhttp.OkHttpClient;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -17,9 +16,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import br.org.institutotim.parapesquisa.data.log.CrashlyticsTree;
 import de.greenrobot.event.EventBus;
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class ParaPesquisaApp extends Application {
@@ -41,12 +38,7 @@ public class ParaPesquisaApp extends Application {
                 .sendNoSubscriberEvent(false)
                 .installDefaultEventBus();
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Fabric.with(this, new Crashlytics());
-            Timber.plant(new CrashlyticsTree());
-        }
+        Timber.plant(new Timber.DebugTree());
 
 //        LeakCanary.install(this);
         JodaTimeAndroid.init(this);

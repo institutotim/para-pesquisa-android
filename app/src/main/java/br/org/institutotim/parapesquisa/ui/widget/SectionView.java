@@ -21,6 +21,9 @@ import br.org.institutotim.parapesquisa.data.model.Section;
 import br.org.institutotim.parapesquisa.data.model.SubmissionCorrection;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
 import br.org.institutotim.parapesquisa.ui.activity.AgentFormActivity;
+import br.org.institutotim.parapesquisa.ui.activity.AgentSubmissionCorrectionActivity;
+import br.org.institutotim.parapesquisa.ui.activity.BaseSubmissionViewActivity;
+import br.org.institutotim.parapesquisa.ui.activity.ModeratorSubmissionApprovalActivity;
 import br.org.institutotim.parapesquisa.ui.adapter.FieldAdapter;
 import de.greenrobot.event.EventBus;
 import timber.log.Timber;
@@ -30,7 +33,6 @@ import static java.util.Collections.sort;
 public class SectionView extends FrameLayout {
 
     private Section mSection;
-    private boolean disable;
     private FieldAdapter mAdapter;
 
     private RecyclerView mRecyclerView;
@@ -69,7 +71,6 @@ public class SectionView extends FrameLayout {
 
     public void setData(Section section, UserSubmission submission, @Nullable List<Answer> answers, int position, boolean disable, boolean correction, boolean moderator, List<SubmissionCorrection> corrections) {
         this.mSection = section;
-        this.disable = disable;
         this.mSectionName.setText(section.getName());
         this.mSectionNumber.setText(String.valueOf(position + 1));
         this.mAdapter = new FieldAdapter(mSection, submission, answers, disable, correction, moderator, corrections);
@@ -193,12 +194,12 @@ public class SectionView extends FrameLayout {
     }
 
     @SuppressWarnings("unused")
-    public void onEventMainThread(AgentFormActivity.RefreshFields refreshFields) {
+    public void onEventMainThread(BaseSubmissionViewActivity.RefreshFields refreshFields) {
         List<Field> fields = new ArrayList<>();
         for (int i = 0; i < mSection.getFields().size(); i++) {
             Field field = mSection.getFields().get(i);
 
-            Boolean value = AgentFormActivity.getReadOnlyStatus(field.getId());
+            Boolean value = BaseSubmissionViewActivity.getReadOnlyStatus(field.getId());
 
             boolean shouldDisable = value != null && value;
 

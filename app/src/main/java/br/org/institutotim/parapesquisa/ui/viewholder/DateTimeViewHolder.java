@@ -59,6 +59,8 @@ public class DateTimeViewHolder extends BaseViewHolder {
             }
 
             this.field.setTag(date);
+        } else {
+            this.field.setText(null);
         }
 
         this.field.addTextChangedListener(new TextWatcher() {

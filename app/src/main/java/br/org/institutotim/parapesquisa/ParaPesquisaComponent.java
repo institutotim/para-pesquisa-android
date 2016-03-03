@@ -23,6 +23,7 @@ import br.org.institutotim.parapesquisa.ui.activity.ModeratorSubmissionsActivity
 import br.org.institutotim.parapesquisa.ui.activity.SignInActivity;
 import br.org.institutotim.parapesquisa.ui.activity.SplashActivity;
 import br.org.institutotim.parapesquisa.ui.activity.SubmissionViewActivity;
+import br.org.institutotim.parapesquisa.ui.adapter.ModeratorSubmissionAdapter;
 import br.org.institutotim.parapesquisa.ui.fragment.AboutFragment;
 import br.org.institutotim.parapesquisa.ui.fragment.AgentFormsFragment;
 import br.org.institutotim.parapesquisa.ui.fragment.HelpFragment;

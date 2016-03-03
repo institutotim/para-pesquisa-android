@@ -12,14 +12,12 @@ import javax.inject.Inject;
 
 import br.org.institutotim.parapesquisa.R;
 import br.org.institutotim.parapesquisa.data.db.ParaPesquisaOpenHelper;
-import br.org.institutotim.parapesquisa.data.model.FormData;
-import br.org.institutotim.parapesquisa.data.model.UserSubmission;
 import br.org.institutotim.parapesquisa.ui.adapter.SectionPagerAdapter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SubmissionViewActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class SubmissionViewActivity extends BaseSubmissionViewActivity implements ViewPager.OnPageChangeListener {
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -35,8 +33,6 @@ public class SubmissionViewActivity extends BaseActivity implements ViewPager.On
     @Bind(R.id.navigation)
     View mNavigation;
 
-    private UserSubmission mSubmission;
-    private FormData mForm;
     private SectionPagerAdapter mAdapter;
 
     @Inject
@@ -70,6 +66,8 @@ public class SubmissionViewActivity extends BaseActivity implements ViewPager.On
         mContainer.setAdapter(mAdapter);
         mContainer.addOnPageChangeListener(this);
         mPrevious.setVisibility(View.INVISIBLE);
+
+        handleReadOnlyStatus();
 
         onPageSelected(0);
     }

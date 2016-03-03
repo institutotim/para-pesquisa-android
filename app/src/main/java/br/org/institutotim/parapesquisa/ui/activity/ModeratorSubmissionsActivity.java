@@ -328,6 +328,7 @@ public class ModeratorSubmissionsActivity extends BaseActivity implements View.O
                 .onPositive((materialDialog, dialogAction) -> {
                     mHelper.addTransfer(
                             mModeratorHelper.getAttributionId(from.getId(), form.getFormId()),
+                            form.getFormId(),
                             status,
                             mModeratorHelper.getAttributionId(destination.getId(), form.getFormId())
                     );

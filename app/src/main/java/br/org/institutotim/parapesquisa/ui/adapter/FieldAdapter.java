@@ -20,8 +20,8 @@ import br.org.institutotim.parapesquisa.data.model.Section;
 import br.org.institutotim.parapesquisa.data.model.SubmissionCorrection;
 import br.org.institutotim.parapesquisa.data.model.SubmissionStatus;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
-import br.org.institutotim.parapesquisa.ui.activity.AgentFormActivity;
 import br.org.institutotim.parapesquisa.ui.activity.AgentSubmissionCorrectionActivity;
+import br.org.institutotim.parapesquisa.ui.activity.BaseSubmissionViewActivity;
 import br.org.institutotim.parapesquisa.ui.activity.ModeratorSubmissionApprovalActivity;
 import br.org.institutotim.parapesquisa.ui.validator.FieldValidator;
 import br.org.institutotim.parapesquisa.ui.viewholder.BaseViewHolder;
@@ -62,6 +62,7 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private Map<Field, Answer> mAnswers = new ArrayMap<>();
     private Map<Field, SubmissionCorrection> corrections = new ArrayMap<>();
 
+
     public FieldAdapter(Section section, @Nullable UserSubmission submission, @Nullable List<Answer> answers, boolean disable, boolean correction, boolean moderator, List<SubmissionCorrection> corrections) {
         this.mSubmission = submission;
         this.disable = disable;
@@ -71,22 +72,27 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         for (int i = 0; i < section.getFields().size(); i++) {
             Field field = section.getFields().get(i);
 
-            Boolean value = AgentFormActivity.getReadOnlyStatus(field.getId());
+            Boolean value = BaseSubmissionViewActivity.getReadOnlyStatus(field.getId());
 
             boolean shouldDisable = value != null && value;
 
             if (!shouldDisable && !field.isReadOnly())
                 mFields.add(field);
         }
+        sortFields();
+
+        setupAnswers(answers);
+        setupCorrections(corrections);
+    }
+
+    private void sortFields() {
         sort(mFields, (lhs, rhs) -> {
-            if (lhs.getOrder() == null || rhs.getOrder() == null) return lhs.getId() < rhs.getId() ? -1 : 1;
+            if (lhs.getOrder() == null || rhs.getOrder() == null)
+                return lhs.getId() < rhs.getId() ? -1 : 1;
             if (lhs.getOrder() < rhs.getOrder()) return -1;
             if (lhs.getOrder() > rhs.getOrder()) return 1;
             return 0;
         });
-
-        setupAnswers(answers);
-        setupCorrections(corrections);
     }
 
     public void setmFields(List<Field> mFields) {
@@ -269,9 +275,11 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void refreshDataExceptField(Field field) {
-        for (int i = 0; i < mFields.size(); i++) {
-            if (mFields.get(i).getId() != field.getId())
+        int size = mFields.size() - 1;
+        for (int i = size; i >= 0; i--) {
+            if (mFields.get(i).getId() != field.getId()) {
                 notifyItemChanged(i);
+            }
         }
     }
 }

@@ -34,6 +34,8 @@ public class UrlViewHolder extends BaseViewHolder {
 
         if (answer != null) {
             this.field.setText(answer.getValues());
+        } else {
+            this.field.setText(null);
         }
 
         this.field.addTextChangedListener(new TextWatcher() {

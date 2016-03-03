@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
         try {
             EventBus.getDefault().register(this);
         } catch (Exception e) {
-            Timber.d(e, "No onEvent() methods found");
+            Timber.d(e, "No onEvent() methods found on " + getClass().getName());
         }
     }
 }

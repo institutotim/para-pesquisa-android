@@ -65,6 +65,9 @@ public abstract class Answer implements Parcelable {
             value[1] = array;
         } else {
             String string = answer.length != 0 ? answer[0].toString() : "";
+            if (TextUtils.isEmpty(string)) {
+                return null;
+            }
             value[1] = getType() == TYPE_STRING ? string : Long.parseLong(string);
         }
 

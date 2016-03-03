@@ -203,7 +203,7 @@ public class AgentSubmissionsActivity extends BaseActivity implements View.OnCli
 
         if (isOverQuota()) {
             showSnackBar(R.string.message_submission_quota_excedeed);
-        } else if (mForm.getForm().getPubEnd() != null && mForm.getForm().getPubEnd().isBeforeNow()) {
+        } else if (mForm.getForm().getPubEnd() != null && mForm.getForm().getPubEnd().plusDays(1).isBeforeNow()) {
             showSnackBar(R.string.message_expired_form);
         } else if (mForm.getForm().getPubStart() != null && mForm.getForm().getPubStart().isAfterNow()) {
             showSnackBar(getString(R.string.message_not_started_form, DateUtils.formatShortDate(this, mForm.getForm().getPubStart())));

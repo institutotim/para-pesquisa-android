@@ -86,7 +86,7 @@ public abstract class UserSubmission implements Parcelable {
 
         for (int i = 0; i < getAnswers().size(); i++) {
             Answer answer = getAnswers().get(i);
-            if (answer.getFieldId() == fieldId) return answer;
+            if (answer != null && answer.getFieldId() == fieldId) return answer;
         }
 
         return null;

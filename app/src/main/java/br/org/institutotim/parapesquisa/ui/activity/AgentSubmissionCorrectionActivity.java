@@ -22,7 +22,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -30,6 +33,7 @@ import br.org.institutotim.parapesquisa.R;
 import br.org.institutotim.parapesquisa.data.db.ParaPesquisaOpenHelper;
 import br.org.institutotim.parapesquisa.data.db.ParaPesquisaPreferences;
 import br.org.institutotim.parapesquisa.data.event.RefreshFieldEvent;
+import br.org.institutotim.parapesquisa.data.model.Answer;
 import br.org.institutotim.parapesquisa.data.model.Field;
 import br.org.institutotim.parapesquisa.data.model.FormData;
 import br.org.institutotim.parapesquisa.data.model.Section;
@@ -46,8 +50,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import timber.log.Timber;
 
-public class AgentSubmissionCorrectionActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, ViewPager.OnPageChangeListener {
+public class AgentSubmissionCorrectionActivity extends BaseSubmissionViewActivity implements AdapterView.OnItemSelectedListener, ViewPager.OnPageChangeListener {
 
     public static final int CORRECTIONS_READ_ONLY = 0;
     public static final int CORRECTIONS = 1;
@@ -81,8 +86,6 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
     @Inject
     ParaPesquisaPreferences mPreferences;
 
-    private UserSubmission submission;
-    private FormData form;
     private SectionPagerAdapter mAdapter;
 
     int menu = R.menu.form;
@@ -95,6 +98,22 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
 
     private DateTime mTimestamp = DateTime.now();
     private Runnable runnable;
+    private static Map<Long, List<Pair<Long, Boolean>>> fieldReadOnlyStatus = new HashMap<>();
+
+    public static Boolean getReadOnlyStatus(final Long fieldId) {
+        final List<Pair<Long, Boolean>> pairs = fieldReadOnlyStatus.get(fieldId);
+
+        if (pairs == null || pairs.isEmpty())
+            return false;
+
+        for (Pair<Long, Boolean> pair : pairs) {
+            if (pair != null && pair.second) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,22 +131,24 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        submission = getIntent().getParcelableExtra(SUBMISSION_EXTRA);
-        form = mHelper.getForm(submission.getFormId());
+        mSubmission = getIntent().getParcelableExtra(SUBMISSION_EXTRA);
+        mForm = mHelper.getForm(mSubmission.getFormId());
 
-        mAdapter = SectionPagerAdapter.builderSectionForCorrection(form, submission);
+        mAdapter = SectionPagerAdapter.builderSectionForCorrection(mForm, mSubmission);
         mContainer.addOnPageChangeListener(this);
         mPrevious.setVisibility(View.INVISIBLE);
         mode.setOnItemSelectedListener(this);
         mode.setSelection(1);
 
+        handleReadOnlyStatus();
+
         List<Pair<Integer, Field>> fieldList = new ArrayList<>();
         List<String> fields = new ArrayList<>();
-        for (int i = 0; i < form.getSections().size(); i++) {
-            final Section section = form.getSections().get(i);
+        for (int i = 0; i < mForm.getSections().size(); i++) {
+            final Section section = mForm.getSections().get(i);
             for (int y = 0; y < section.getFields().size(); y++) {
                 final Field field = section.getFields().get(y);
-                if (RecyclerViewHelper.hasCorrection(field, submission)) {
+                if (RecyclerViewHelper.hasCorrection(field, mSubmission)) {
                     fieldList.add(new Pair<>(i, field));
                     fields.add(field.getLabel());
                 }
@@ -161,7 +182,7 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(this.menu, menu);
-        if (!form.hasExtraData()) {
+        if (!mForm.hasExtraData()) {
             menu.getItem(0).setVisible(false);
         }
         return true;
@@ -191,8 +212,8 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
         runOnUiThread(() -> {
             new MaterialDialog.Builder(this)
                     .title(R.string.title_reason_to_stop)
-                    .items(mFormHelper.getStopReasonsArray(form.getStopReasons()))
-                    .itemsCallback((materialDialog, view, i, charSequence) -> cancelOrReschedule(form.getStopReasons().get(i)))
+                    .items(mFormHelper.getStopReasonsArray(mForm.getStopReasons()))
+                    .itemsCallback((materialDialog, view, i, charSequence) -> cancelOrReschedule(mForm.getStopReasons().get(i)))
                     .negativeText(R.string.button_cancel)
                     .show();
         });
@@ -214,8 +235,8 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
                 .negativeText(R.string.button_no)
                 .autoDismiss(true)
                 .onPositive((materialDialog, dialogAction) -> {
-                    mHelper.addSubmissionForCancel(form.getId(), submission.addLog(mTimestamp, SubmissionLogAction.CANCELLED, mPreferences.getUser().getId()), reason);
-                    mHelper.removeSubmission(form.getId(), submission.getId());
+                    mHelper.addSubmissionForCancel(mForm.getId(), mSubmission.addLog(mTimestamp, SubmissionLogAction.CANCELLED, mPreferences.getUser().getId()), reason);
+                    mHelper.removeSubmission(mForm.getId(), mSubmission.getId());
                     finish();
                 })
                 .show();
@@ -239,12 +260,12 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
                             .onPositive((materialDialog, dialogAction) -> {
                                 if (date.isBeforeNow()) {
                                     showSnackBar(R.string.message_reschedule_date_is_before_now);
-                                } else if (date.isAfter(new DateTime(form.getPubEnd()).plusDays(1).withTimeAtStartOfDay())) {
+                                } else if (date.isAfter(new DateTime(mForm.getPubEnd()).plusDays(1).withTimeAtStartOfDay())) {
                                     showSnackBar(R.string.message_reschedule_date_is_after_pub_end);
                                 } else {
-                                    mHelper.addSubmissionForReschedule(form.getId(), submission.addLog(date,
+                                    mHelper.addSubmissionForReschedule(mForm.getId(), mSubmission.addLog(date,
                                             SubmissionLogAction.RESCHEDULED, mPreferences.getUser().getId()), reason, date);
-                                    mHelper.removeSubmission(form.getId(), submission.getId());
+                                    mHelper.removeSubmission(mForm.getId(), mSubmission.getId());
                                     finish();
                                 }
                             })
@@ -276,9 +297,9 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
                     .content(R.string.message_send_submission_disclaimer)
                     .autoDismiss(true)
                     .onPositive((materialDialog, dialogAction) -> {
-                        submission = submission.removeStatus();
-                        mHelper.removeSubmission(submission.getFormId(), submission.getId());
-                        mHelper.addSubmission(submission.getFormId(), mSubmissionHelper.updateAnswersBySections(mAdapter.getAnswers(mContainer), submission.addLog(mTimestamp, SubmissionLogAction.REVISED, mPreferences.getUser().getId())));
+                        mSubmission = mSubmission.removeStatus();
+                        mHelper.removeSubmission(mSubmission.getFormId(), mSubmission.getId());
+                        mHelper.addSubmission(mSubmission.getFormId(), mSubmissionHelper.updateAnswersBySections(mAdapter.getAnswers(mContainer), mSubmission.addLog(mTimestamp, SubmissionLogAction.REVISED, mPreferences.getUser().getId())));
                         finish();
                     })
                     .positiveText(R.string.button_yes)
@@ -289,9 +310,9 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
 
     private void openExtraDataPopup() {
         Intent intent = new Intent(this, ExtraDataActivity.class);
-        intent.putExtra(ExtraDataActivity.FORM_EXTRA, form);
-        intent.putExtra(ExtraDataActivity.SUBMISSION_EXTRA, submission);
-        intent.putExtra(ExtraDataActivity.STARTED_EXTRA, DateUtils.formatShortDate(this, submission.getStartTime()));
+        intent.putExtra(ExtraDataActivity.FORM_EXTRA, mForm);
+        intent.putExtra(ExtraDataActivity.SUBMISSION_EXTRA, mSubmission);
+        intent.putExtra(ExtraDataActivity.STARTED_EXTRA, DateUtils.formatShortDate(this, mSubmission.getStartTime()));
         startActivity(intent);
     }
 
@@ -361,6 +382,4 @@ public class AgentSubmissionCorrectionActivity extends BaseActivity implements A
     @Override
     public void onPageScrollStateChanged(int state) {
     }
-
-
 }

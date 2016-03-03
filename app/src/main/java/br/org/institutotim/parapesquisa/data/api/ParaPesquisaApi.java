@@ -70,8 +70,8 @@ public interface ParaPesquisaApi {
     @GET("/" + ApiModule.API_VERSION + "/users/{userId}")
     SingleResponse<UserData> getUserData(@Path(USER_ID) long userId);
 
-    @POST("/" + ApiModule.API_VERSION + "/assignments/transfer")
-    Response transferAssignment(@Body AttributionTransfer transfer);
+    @POST("/" + ApiModule.API_VERSION + "/forms/{formId}/submissions/transfer")
+    Response transferAssignment(@Path("formId") long formId, @Body AttributionTransfer transfer);
 
     @POST("/" + ApiModule.API_VERSION + "/forms/{formId}/submissions/{submissionId}/moderate")
     Response moderate(@Path("formId") long formId, @Path("submissionId") Long submissionId, @Body Moderation moderation);

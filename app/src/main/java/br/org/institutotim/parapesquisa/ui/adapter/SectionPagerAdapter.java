@@ -1,5 +1,6 @@
 package br.org.institutotim.parapesquisa.ui.adapter;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.PagerAdapter;

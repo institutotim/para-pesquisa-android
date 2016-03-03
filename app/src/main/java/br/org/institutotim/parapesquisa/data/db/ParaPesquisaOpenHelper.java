@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,7 +57,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
     private static final String LONG_END = " LONG";
 
     private static final String DB_NAME = "parapesquisa.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     private static final String CREATE_TEMP = ""
             + CREATE_TABLE + "TEMPORARY" + "("
@@ -187,6 +188,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
             + CREATE_TABLE + AttributionTransfer.TABLE + "("
             + AttributionTransfer.SOURCE + LONG
             + AttributionTransfer.TARGET + LONG
+            + AttributionTransfer.FORM_ID + LONG
             + AttributionTransfer.STATUS + " TEXT"
             + ")";
     private static final String CREATE_USER_SUBMISSION_APPROVED = ""
@@ -216,6 +218,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
     public ParaPesquisaOpenHelper(Context context, ObjectMapper objectMapper, ParaPesquisaPreferences preferences) {
         super(context, DB_NAME, null, DB_VERSION);
         this.mObjectMapper = objectMapper;
+        this.mObjectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         this.mPreferences = preferences;
     }
 
@@ -325,15 +328,27 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
     }
 
     private void saveUser(SQLiteDatabase db, UserData user) {
-        db.insert(UserData.TABLE, null, new UserData.ContentBuilder()
-                .id(user.getId())
-                .name(user.getName())
-                .username(user.getUsername())
-                .avatarUrl(user.getAvatarUrl())
-                .email(user.getEmail())
-                .createdAt(user.getCreatedAt())
-                .role(user.getRole())
-                .build());
+        if (getUser(user.getId()) == null) {
+            db.insert(UserData.TABLE, null, new UserData.ContentBuilder()
+                    .id(user.getId())
+                    .name(user.getName())
+                    .username(user.getUsername())
+                    .avatarUrl(user.getAvatarUrl())
+                    .email(user.getEmail())
+                    .createdAt(user.getCreatedAt())
+                    .role(user.getRole())
+                    .build());
+        } else {
+            db.update(UserData.TABLE, new UserData.ContentBuilder()
+                    .id(user.getId())
+                    .name(user.getName())
+                    .username(user.getUsername())
+                    .avatarUrl(user.getAvatarUrl())
+                    .email(user.getEmail())
+                    .createdAt(user.getCreatedAt())
+                    .role(user.getRole())
+                    .build(), UserData.ID + "=" + user.getId(), null);
+        }
     }
 
     public void deleteAttributions() {
@@ -877,7 +892,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
     @Nullable
     private String getIdentifier(UserSubmission submission, Field field) {
         for (Answer answer : submission.getAnswers()) {
-            if (answer.getFieldId() == field.getId()) {
+            if (answer != null && answer.getFieldId() == field.getId()) {
                 return answer.getValues();
             }
         }
@@ -1411,12 +1426,13 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    public void addTransfer(long source, SubmissionStatus status, long destination) {
+    public void addTransfer(long source, long formId, SubmissionStatus status, long destination) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         db.insert(AttributionTransfer.TABLE, null, new AttributionTransfer.ContentBuilder()
                 .source(source)
                 .target(destination)
+                .formId(formId)
                 .status(status)
                 .build());
         db.setTransactionSuccessful();
@@ -1432,6 +1448,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
             transfers.add(AttributionTransfer.builder()
                     .source(getLong(cursor, AttributionTransfer.SOURCE))
                     .target(getLong(cursor, AttributionTransfer.TARGET))
+                    .formId(getLong(cursor, AttributionTransfer.FORM_ID))
                     .status(SubmissionStatus.get(getString(cursor, AttributionTransfer.STATUS)))
                     .build());
             cursor.moveToNext();
@@ -1577,6 +1594,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         List<UserSubmission> submissions = new ArrayList<>();
+        mObjectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         while (!cursor.isAfterLast()) {
             try {
                 submissions.add(UserSubmission.builder()

@@ -107,7 +107,8 @@ public class ModeratorUpdateService extends IntentService {
     private void sendTransfers() {
         List<AttributionTransfer> transfers = helper.getTransfers();
         for (int i = 0; i < transfers.size(); i++) {
-            api.transferAssignment(transfers.get(i));
+            AttributionTransfer transfer = transfers.get(i);
+            api.transferAssignment(transfer.getFormId(), transfer);
         }
         helper.clearTransfers();
     }

@@ -1,6 +1,7 @@
 package br.org.institutotim.parapesquisa.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -12,26 +13,37 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import br.org.institutotim.parapesquisa.R;
 import br.org.institutotim.parapesquisa.data.db.ParaPesquisaOpenHelper;
 import br.org.institutotim.parapesquisa.data.db.ParaPesquisaPreferences;
+import br.org.institutotim.parapesquisa.data.model.Answer;
+import br.org.institutotim.parapesquisa.data.model.Field;
 import br.org.institutotim.parapesquisa.data.model.FormData;
+import br.org.institutotim.parapesquisa.data.model.Section;
 import br.org.institutotim.parapesquisa.data.model.SubmissionCorrection;
 import br.org.institutotim.parapesquisa.data.model.SubmissionLogAction;
+import br.org.institutotim.parapesquisa.data.model.SubmissionStatus;
 import br.org.institutotim.parapesquisa.data.model.UserData;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
 import br.org.institutotim.parapesquisa.ui.adapter.SectionPagerAdapter;
 import br.org.institutotim.parapesquisa.ui.helper.ModeratorFieldHelper;
+import br.org.institutotim.parapesquisa.ui.helper.RecyclerViewHelper;
 import br.org.institutotim.parapesquisa.ui.helper.SectionHelper;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+import timber.log.Timber;
 
-public class ModeratorSubmissionApprovalActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class ModeratorSubmissionApprovalActivity extends BaseSubmissionViewActivity implements ViewPager.OnPageChangeListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -47,9 +59,6 @@ public class ModeratorSubmissionApprovalActivity extends BaseActivity implements
     @Bind(R.id.navigation)
     View navigation;
 
-    private UserSubmission submission;
-    private FormData form;
-
     @Inject
     ParaPesquisaOpenHelper mHelper;
     @Inject
@@ -63,6 +72,7 @@ public class ModeratorSubmissionApprovalActivity extends BaseActivity implements
     public static UserData user;
 
     private DateTime mTimestamp = DateTime.now();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,20 +89,24 @@ public class ModeratorSubmissionApprovalActivity extends BaseActivity implements
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        submission = getIntent().getParcelableExtra(SUBMISSION_EXTRA);
-        form = mHelper.getForm(getIntent().getLongExtra(FORM_EXTRA, 0));
+        mSubmission = getIntent().getParcelableExtra(SUBMISSION_EXTRA);
+        mForm = mHelper.getForm(getIntent().getLongExtra(FORM_EXTRA, 0));
 
-        if (submission.getIdentifier() != null) {
-            runOnUiThread(() -> getSupportActionBar().setTitle(submission.getIdentifier()));
+        if (mSubmission.getIdentifier() != null) {
+            runOnUiThread(() -> getSupportActionBar().setTitle(mSubmission.getIdentifier()));
         } else {
-            runOnUiThread(() -> getSupportActionBar().setTitle(getString(R.string.text_submission) + String.format(" #%d", submission.getId())));
+            runOnUiThread(() -> getSupportActionBar().setTitle(getString(R.string.text_submission) + String.format(" #%d", mSubmission.getId())));
         }
 
-        adapter = SectionPagerAdapter.builderSectionForModerator(form, submission);
+        adapter = SectionPagerAdapter.builderSectionForModerator(mForm, mSubmission);
         mContainer.setAdapter(adapter);
         mContainer.addOnPageChangeListener(this);
         previous.setVisibility(View.INVISIBLE);
+
+        handleReadOnlyStatus();
+
         onPageSelected(0);
+
 
     }
 
@@ -146,8 +160,9 @@ public class ModeratorSubmissionApprovalActivity extends BaseActivity implements
                 .positiveText(R.string.button_yes)
                 .autoDismiss(true)
                 .onPositive((materialDialog, dialogAction) -> {
-                    mHelper.addApprovedSubmission(submission.addLog(mTimestamp, SubmissionLogAction.APPROVED, mPreferences.getUser().getId()));
-                    mHelper.removeSubmission(submission.getFormId(), submission.getId());
+                    mSubmission = mSubmission.updateStatus(SubmissionStatus.APPROVED);
+                    mHelper.removeSubmission(mSubmission.getFormId(), mSubmission.getId());
+                    mHelper.addSubmission(mSubmission.getFormId(), mSubmission.addLog(mTimestamp, SubmissionLogAction.APPROVED, mPreferences.getUser().getId()));
                     finish();
                 })
                 .show();
@@ -162,8 +177,9 @@ public class ModeratorSubmissionApprovalActivity extends BaseActivity implements
                 .positiveText(R.string.button_yes)
                 .autoDismiss(true)
                 .onPositive((materialDialog, dialogAction) -> {
-                    mHelper.addRejectedSubmission(submission.addLog(mTimestamp, SubmissionLogAction.REPROVED, mPreferences.getUser().getId()));
-                    mHelper.removeSubmission(submission.getFormId(), submission.getId());
+                    mSubmission = mSubmission.updateStatus(SubmissionStatus.CANCELLED);
+                    mHelper.removeSubmission(mSubmission.getFormId(), mSubmission.getId());
+                    mHelper.addSubmission(mSubmission.getFormId(), mSubmission.addLog(mTimestamp, SubmissionLogAction.REPROVED, mPreferences.getUser().getId()));
                     finish();
                 })
                 .show();
@@ -175,14 +191,14 @@ public class ModeratorSubmissionApprovalActivity extends BaseActivity implements
 
         new MaterialDialog.Builder(this)
                 .title(corrections.isEmpty() ? R.string.title_warning : R.string.title_correction_requested)
-                .content(corrections.isEmpty() ? getString(R.string.message_no_comments) : getString(R.string.message_correction_requested, submission.getOwner().getName()))
+                .content(corrections.isEmpty() ? getString(R.string.message_no_comments) : getString(R.string.message_correction_requested, mSubmission.getOwner().getName()))
                 .neutralText(R.string.button_ok)
                 .autoDismiss(true)
                 .onNeutral((materialDialog, dialogAction) -> {
                     if (!corrections.isEmpty()) {
-                        submission = submission.setCorrections(corrections);
-                        mHelper.removeSubmission(submission.getFormId(), submission.getId());
-                        mHelper.addSubmission(submission.getFormId(), submission.addLog(mTimestamp, SubmissionLogAction.REVISED, mPreferences.getUser().getId()));
+                        mSubmission = mSubmission.setCorrections(corrections);
+                        mHelper.removeSubmission(mSubmission.getFormId(), mSubmission.getId());
+                        mHelper.addSubmission(mSubmission.getFormId(), mSubmission.addLog(mTimestamp, SubmissionLogAction.REVISED, mPreferences.getUser().getId()));
                         finish();
                     }
                 })
