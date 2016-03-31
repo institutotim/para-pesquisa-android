@@ -29,6 +29,8 @@ public class CheckboxViewHolder extends BaseViewHolder implements CompoundButton
     @Bind(R.id.field_checkbox)
     LinearLayout container;
 
+    private String lastValue;
+
     public CheckboxViewHolder(View itemView) {
         super(itemView);
     }
@@ -97,13 +99,17 @@ public class CheckboxViewHolder extends BaseViewHolder implements CompoundButton
     @Override
     public Answer extractAnswer() {
         List<String> values = getValues();
+        String value = TextUtils.join("\\\\", values);
 
-        return !values.isEmpty() ? Answer.builder()
+        Answer answer = !values.isEmpty() ? Answer.builder()
                 .fieldId(getField().getId())
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
-                .values(TextUtils.join("\\\\", values))
+                .values(value)
+                .lastValues(lastValue == null ? "" : lastValue)
                 .build() : null;
+        lastValue = value;
+        return answer;
     }
 
     @NonNull

@@ -9,21 +9,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import br.org.institutotim.parapesquisa.R;
 import br.org.institutotim.parapesquisa.data.model.Answer;
 import br.org.institutotim.parapesquisa.data.model.Field;
+import br.org.institutotim.parapesquisa.data.model.FieldAction;
+import br.org.institutotim.parapesquisa.data.model.FieldOption;
 import br.org.institutotim.parapesquisa.data.model.FormData;
 import br.org.institutotim.parapesquisa.data.model.Section;
 import br.org.institutotim.parapesquisa.data.model.SubmissionCorrection;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
+import br.org.institutotim.parapesquisa.ui.activity.ModeratorSubmissionApprovalActivity;
+import br.org.institutotim.parapesquisa.ui.helper.RecyclerViewHelper;
 import br.org.institutotim.parapesquisa.ui.widget.SectionView;
 import de.greenrobot.event.EventBus;
 import timber.log.Timber;
 
+import static br.org.institutotim.parapesquisa.ui.helper.RecyclerViewHelper.getAnswerForField;
+import static br.org.institutotim.parapesquisa.ui.helper.RecyclerViewHelper.processActions;
 import static java.util.Collections.sort;
 
 public class SectionPagerAdapter extends PagerAdapter {
@@ -189,6 +201,7 @@ public class SectionPagerAdapter extends PagerAdapter {
 
     public List<SubmissionCorrection> getCorrections(ViewPager viewPager) {
         List<SubmissionCorrection> corrections = new ArrayList<>();
+        Map<Long, SubmissionCorrection> correctionsFields = new HashMap<>();
 
         int size = getCount();
         for (int i = 0; i < size; i++) {
@@ -204,8 +217,77 @@ public class SectionPagerAdapter extends PagerAdapter {
             }
         }
 
-        return corrections;
+        for(SubmissionCorrection correction : corrections) {
+            correctionsFields.put(correction.getFieldId(), correction);
+        }
+
+        for(int i = 0;i<corrections.size();i++) {
+            Field field = getField(corrections.get(i).getFieldId());
+            if (field != null && field.getActions() != null) {
+                Answer answer = mSubmission.getAnswerForField(field.getId());
+                RecyclerViewHelper.ActionWrapper wrapper = processActions(field, answer);
+                //Set of disabled when it's the current option
+                Set<Long> currentDisableSet = new HashSet<>();
+                if (wrapper != null){
+                    if (wrapper.getDisable() != null)
+                        currentDisableSet.addAll(wrapper.getDisable());
+                }
+                Set<Long> intersectionDisableSet = getIntersectionDisabledOptions(field.getActions(), field.getOptions());
+                //Disabled(currentoption) - disabled(intersection): all the possible fields to edit
+                currentDisableSet.removeAll(intersectionDisableSet);
+                for(Long fieldId : currentDisableSet) {
+                    Field myField = getField(fieldId);
+                    if (myField != null && !correctionsFields.containsKey(fieldId)) {
+                        SubmissionCorrection myCorrection = SubmissionCorrection.builder()
+                                .createdAt(DateTime.now())
+                                .fieldId(fieldId)
+                                .message("Lógica de pulo a partir do campo: " + field.getLabel())
+                                .userId(ModeratorSubmissionApprovalActivity.user.getId())
+                                .build();
+                        corrections.add(myCorrection);
+                        correctionsFields.put(fieldId, myCorrection);
+                    }
+                }
+            }
+        }
+
+        List<SubmissionCorrection> correctionsList = new ArrayList<>(corrections);
+        return correctionsList;
     }
+
+    private Field getField(long fieldId) {
+        for(Section section : mData.keySet()) {
+            for (Field field : section.getFields()) {
+                if (field.getId() == fieldId) {
+                    return field;
+                }
+            }
+        }
+        return null;
+    }
+
+    private Set<Long> getIntersectionDisabledOptions(List<FieldAction> actions, List<FieldOption> options) {
+        Set<Long> intersectionSet = new HashSet<>();
+        if (actions == null || actions.isEmpty()) {
+            return intersectionSet;
+        }
+        if (options != null && actions.size() < options.size()) {
+            return intersectionSet;
+        }
+        if (actions.get(0).getDisable() != null) {
+            intersectionSet.addAll(actions.get(0).getDisable());
+        }
+        for (int i = 1; i < actions.size(); i++) {
+            Set<Long> set = new HashSet<>();
+            if (actions.get(i).getDisable() != null) {
+                set.addAll(actions.get(i).getDisable());
+            }
+            intersectionSet.retainAll(set);
+        }
+        return intersectionSet;
+    }
+
+
 
     public boolean isValidSections(ViewPager viewPager) {
         int size = getCount();

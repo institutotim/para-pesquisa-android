@@ -12,6 +12,7 @@ import auto.parcel.AutoParcel;
 @AutoParcel
 @JsonDeserialize(builder = AutoParcel_Summary.Builder.class)
 public abstract class Summary implements Parcelable {
+    public static final String NULL_DATE = "2099-01-01";
 
     public abstract long getQuota();
 

@@ -23,6 +23,7 @@ import br.org.institutotim.parapesquisa.data.model.FormData;
 import br.org.institutotim.parapesquisa.data.model.Section;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
 import br.org.institutotim.parapesquisa.ui.adapter.ExtraDataAdapter;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -56,7 +57,7 @@ public class ExtraDataActivity extends BaseActivity {
 
         statusImage.setImageResource(R.drawable.inprogress_survey);
 
-        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setLayoutManager(new WrapperLinearLayoutManager(this));
 
         overridePendingTransition(R.anim.activity_open_translate2, R.anim.activity_close_scale);
 
@@ -93,9 +94,13 @@ public class ExtraDataActivity extends BaseActivity {
             Section section = form.getSections().get(i);
             for (int j = 0; j < section.getFields().size(); j++) {
                 Field field = section.getFields().get(j);
-                for (int k = 0; k < submission.getAnswers().size(); k++) {
-                    Answer answer = submission.getAnswers().get(k);
-                    if (answer.getFieldId() == field.getId()) {
+                List<Answer> answers = submission.getAnswers();
+                if (answers == null) {
+                    continue;
+                }
+                for (int k = 0; k < answers.size(); k++) {
+                    Answer answer = answers.get(k);
+                    if (answer != null && answer.getFieldId() == field.getId()) {
                         content.add(Arrays.asList(field.getLabel(), answer.getValues()));
                     }
                 }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,11 +31,12 @@ public abstract class AttributionTransfer implements Parcelable {
     @JsonProperty("user_id_to")
     public abstract long getTarget();
 
-    @JsonProperty("status")
+    @Nullable
+    @JsonIgnore
     public abstract SubmissionStatus getStatus();
 
     @Nullable
-    @JsonProperty("form_id")
+    @JsonIgnore
     public abstract Long getFormId();
 
     @AutoParcel.Builder

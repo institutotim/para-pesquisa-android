@@ -8,7 +8,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +35,7 @@ import br.org.institutotim.parapesquisa.ui.adapter.TransferSubmissionAdapter;
 import br.org.institutotim.parapesquisa.ui.adapter.UserSubmissionsTransferAdapter;
 import br.org.institutotim.parapesquisa.ui.helper.ModeratorHelper;
 import br.org.institutotim.parapesquisa.ui.helper.NotificationHelper;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -101,7 +101,7 @@ public class ModeratorSubmissionsActivity extends BaseActivity implements View.O
         getSupportActionBar().setTitle(form.getForm().getName());
         getSupportActionBar().setSubtitle(form.getForm().getSubtitleAndPubDate(this));
 
-        notifications.setLayoutManager(new LinearLayoutManager(this));
+        notifications.setLayoutManager(new WrapperLinearLayoutManager(this));
 
         transferSubmissionsButton.setVisibility(form.getForm().isAllowTransfer() ? View.VISIBLE : View.GONE);
     }
@@ -277,11 +277,15 @@ public class ModeratorSubmissionsActivity extends BaseActivity implements View.O
 
     @OnClick(R.id.transfer_submissions)
     public void transferSubmissions() {
+        if (mHelper.getUsers(form.getFormId()).size() <= 1) {
+            showSnackBar(R.string.error_not_users_enough_to_transfer);
+            return;
+        }
         new MaterialDialog.Builder(this)
                 .title(R.string.title_transfer_submissions)
                 .adapter(new TransferSubmissionAdapter(this, mHelper.getUsers(form.getFormId())), (materialDialog, view, i, charSequence) -> {
                     materialDialog.dismiss();
-                    showTransferDialogForUser((UserData) materialDialog.getListView().getAdapter().getItem(i));
+                    pickDestinationSurveyTaker((UserData) materialDialog.getListView().getAdapter().getItem(i));
                 })
                 .negativeText(R.string.button_cancel)
                 .show();
@@ -294,17 +298,17 @@ public class ModeratorSubmissionsActivity extends BaseActivity implements View.O
                 .adapter(new UserSubmissionsTransferAdapter(this, user, form.getFormId(),
                         mHelper.getSubmissions(form.getFormId()), mHelper.getAttributions()), (dialog, view, position, charSequence) -> {
                     dialog.dismiss();
-                    pickDestinationSurveyTaker(user, (SubmissionStatus) dialog.getListView().getAdapter().getItem(position));
+                    //pickDestinationSurveyTaker(user, (SubmissionStatus) dialog.getListView().getAdapter().getItem(position));
                 })
                 .show();
     }
 
-    private void pickDestinationSurveyTaker(UserData user, SubmissionStatus status) {
+    private void pickDestinationSurveyTaker(UserData user) {
         new MaterialDialog.Builder(this)
                 .title(R.string.title_transfer_to)
                 .adapter(new DestinationTransferSubmissionAdapter(this, user, mHelper.getUsers(form.getFormId())), (dialog, view, position, charSequence) -> {
                     dialog.dismiss();
-                    showConfirmationTransferDialog(user, status, (UserData) dialog.getListView().getAdapter().getItem(position));
+                    showConfirmationTransferDialog(user, null, (UserData) dialog.getListView().getAdapter().getItem(position));
                 })
                 .negativeText(R.string.button_cancel)
                 .show();
@@ -327,10 +331,10 @@ public class ModeratorSubmissionsActivity extends BaseActivity implements View.O
                 .content(message)
                 .onPositive((materialDialog, dialogAction) -> {
                     mHelper.addTransfer(
-                            mModeratorHelper.getAttributionId(from.getId(), form.getFormId()),
+                            from.getId(),
                             form.getFormId(),
                             status,
-                            mModeratorHelper.getAttributionId(destination.getId(), form.getFormId())
+                            destination.getId()
                     );
                 })
                 .show();

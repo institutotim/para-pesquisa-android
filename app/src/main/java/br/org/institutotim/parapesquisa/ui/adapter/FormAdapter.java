@@ -26,7 +26,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FormAdapter extends RecyclerView.Adapter<FormAdapter.ViewHolder> {
-
     private List<UserForm> mForms;
     private Context mContext;
     private ParaPesquisaOpenHelper mHelper;
@@ -51,35 +50,44 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserForm form = mForms.get(position);
 
-        holder.title.setText(form.getForm().getName());
+        DateTimeFormatter format = DateUtils.getShortDateInstanceWithoutYears();
+        FormData formData = form.getForm();
 
-        DateTime startTime = form.getForm().getPubStart() != null ?
-                form.getForm().getPubStart() :
-                form.getForm().getCreatedAt();
+        holder.title.setText(formData.getName());
+
+        DateTime startTime = formData.getPubStart();
+        String startDate = startTime == null ? mContext.getString(R.string.text_indefined_date) : format.print(startTime);
+
+        DateTime endTime = formData.getPubEnd();
+        String endDate =  endTime == null ? mContext.getString(R.string.text_indefined_date) : format.print(endTime);
+
+
 
         int remaining;
-        if (DateTime.now().isAfter(form.getForm().getPubEnd().plusDays(1)
+        if (endTime != null && DateTime.now().isAfter(endTime.plusDays(1)
                 .withTimeAtStartOfDay())) {
             remaining = 0;
         } else {
-            remaining = Days.daysBetween(DateTime.now(), form.getForm().getPubEnd())
-                    .getDays() + 1;
+            remaining = endTime != null ? Days.daysBetween(DateTime.now(), endTime)
+                    .getDays() + 1 : 999;
         }
         holder.remainingDays.setText(String.valueOf(remaining));
 
+        DateTime realStartTime = startTime == null ? formData.getCreatedAt() : startTime;
+        DateTime realEndTime = endTime == null ? realStartTime.plusDays(999) : endTime;
+
         String totalDays = mContext.getString(R.string.slash_separator,
-                String.valueOf(Days.daysBetween(startTime, form.getForm().getPubEnd()).getDays()),
+                String.valueOf(Days.daysBetween(realStartTime, realEndTime).getDays()),
                 mContext.getString(R.string.text_days_remaining));
         holder.totalDays.setText(totalDays);
 
-        DateTimeFormatter format = DateUtils.getShortDateInstanceWithoutYears();
-        FormData formData = form.getForm();
+
         String subtitle = (formData.getSubtitle() != null ? formData.getSubtitle() + " | " : "");
         if (form.getForm().getPubEnd() != null) {
-            subtitle += mContext.getString(R.string.text_from_dates, format.print(startTime),
-                    format.print(formData.getPubEnd()));
+            subtitle += mContext.getString(R.string.text_from_dates, startDate,
+                    endDate);
         } else {
-            subtitle += mContext.getString(R.string.text_from, format.print(startTime));
+            subtitle += mContext.getString(R.string.undefined_date);
         }
         holder.subtitle.setText(subtitle);
 

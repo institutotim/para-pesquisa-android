@@ -31,6 +31,7 @@ public class RadioViewHolder extends BaseViewHolder implements RadioGroup.OnChec
 
     EditText input;
     private boolean enableInput;
+    private String lastValue;
 
     public RadioViewHolder(View itemView) {
         super(itemView);
@@ -154,13 +155,16 @@ public class RadioViewHolder extends BaseViewHolder implements RadioGroup.OnChec
     @Override
     public Answer extractAnswer() {
         String value = getValue();
-
-        return value != null ? Answer.builder()
+        Answer answer = value != null ? Answer.builder()
                 .fieldId(getField().getId())
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
                 .values(getValue())
+                .lastValues(lastValue == null ? "" : lastValue)
                 .build() : null;
+
+        lastValue = value;
+        return answer;
     }
 
     @Nullable

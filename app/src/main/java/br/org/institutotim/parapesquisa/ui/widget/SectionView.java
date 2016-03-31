@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -61,12 +62,7 @@ public class SectionView extends FrameLayout {
         mSectionName = (TextView) findViewById(R.id.section_name);
         mSectionNumber = (TextView) findViewById(R.id.section_number);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()) {
-            @Override
-            public boolean supportsPredictiveItemAnimations() {
-                return false;
-            }
-        });
+        mRecyclerView.setLayoutManager(new WrapperLinearLayoutManager(getContext()));
     }
 
     public void setData(Section section, UserSubmission submission, @Nullable List<Answer> answers, int position, boolean disable, boolean correction, boolean moderator, List<SubmissionCorrection> corrections) {
@@ -106,7 +102,7 @@ public class SectionView extends FrameLayout {
         mAdapter.notifyDataSetChanged();
     }
 
-    public static class MyLinearLayoutManager extends LinearLayoutManager {
+    public static class MyLinearLayoutManager extends WrapperLinearLayoutManager {
 
         public MyLinearLayoutManager(Context context, int orientation, boolean reverseLayout)    {
             super(context, orientation, reverseLayout);
@@ -199,15 +195,18 @@ public class SectionView extends FrameLayout {
         for (int i = 0; i < mSection.getFields().size(); i++) {
             Field field = mSection.getFields().get(i);
 
-            Boolean value = BaseSubmissionViewActivity.getReadOnlyStatus(field.getId());
+            Boolean shouldDisable = BaseSubmissionViewActivity.getReadOnlyStatus(field.getId());
 
-            boolean shouldDisable = value != null && value;
-
-            if (!shouldDisable && !field.isReadOnly())
+            if (!shouldDisable && !field.isReadOnly()) {
                 fields.add(field);
+            } else {
+                mAdapter.removeAnswer(field);
+                BaseSubmissionViewActivity.removeReadOnlyStatus(field.getId());
+            }
         }
         sort(fields, (lhs, rhs) -> {
-            if (lhs.getOrder() == null || rhs.getOrder() == null) return lhs.getId() < rhs.getId() ? -1 : 1;
+            if (lhs.getOrder() == null || rhs.getOrder() == null)
+                return lhs.getId() < rhs.getId() ? -1 : 1;
             if (lhs.getOrder() < rhs.getOrder()) return -1;
             if (lhs.getOrder() > rhs.getOrder()) return 1;
             return 0;

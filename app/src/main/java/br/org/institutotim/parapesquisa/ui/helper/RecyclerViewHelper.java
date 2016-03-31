@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,9 @@ import br.org.institutotim.parapesquisa.data.model.Answer;
 import br.org.institutotim.parapesquisa.data.model.Field;
 import br.org.institutotim.parapesquisa.data.model.FieldAction;
 import br.org.institutotim.parapesquisa.data.model.FieldType;
+import br.org.institutotim.parapesquisa.data.model.Section;
 import br.org.institutotim.parapesquisa.data.model.SubmissionCorrection;
+import br.org.institutotim.parapesquisa.data.model.UserForm;
 import br.org.institutotim.parapesquisa.data.model.UserSubmission;
 import br.org.institutotim.parapesquisa.ui.activity.AgentSubmissionCorrectionActivity;
 import br.org.institutotim.parapesquisa.ui.activity.ModeratorSubmissionApprovalActivity;
@@ -103,14 +106,59 @@ public class RecyclerViewHelper {
             ((BaseViewHolder) holder).enable();
     }
 
-    public static void fillDataForCorrection(RecyclerView.ViewHolder holder, @NonNull Field field, Answer answer, UserSubmission submission) {
+    public static void fillDataForCorrection(RecyclerView.ViewHolder holder, @NonNull Field field, Collection<Answer> answers, Answer answer, UserSubmission submission) {
         int correctionType = AgentSubmissionCorrectionActivity.correctionType;
         if (AgentSubmissionCorrectionActivity.CORRECTIONS_READ_ONLY == correctionType) {
             fillDataFor(holder, field, answer, true);
             if (hasCorrection(field, submission))
                 ((BaseViewHolder) holder).highlightTitle();
         } else {
-            if (hasCorrection(field, submission))
+            boolean shouldEdit = false;
+            List<SubmissionCorrection> corrections = submission.getCorrections();
+            if (corrections != null) {
+                List<FieldAction> fieldActions = field.getActions();
+                for (Answer correctionAnswer : answers) {
+                    if (correctionAnswer != null && correctionAnswer.getLastValues() != null) {
+                        String[] values = StringUtils.split(correctionAnswer.getValues(), "\\\\");
+                        String[] lastValues = StringUtils.split(correctionAnswer.getLastValues(), "\\\\");
+
+                        if (values == null || lastValues == null) {
+                            continue;
+                        }
+                        boolean containsLastValuesDisabled = false;
+
+                        for (int j = 0; j < fieldActions.size(); j++) {
+                            FieldAction fieldAction = fieldActions.get(j);
+                            for (int i = 0; i < lastValues.length; i++) {
+                                String value = lastValues[i];
+                                if (fieldAction.getWhen() != null) {
+                                    if (fieldAction.getWhen().contains(value)) {
+                                        containsLastValuesDisabled = containsLastValuesDisabled || fieldAction.getDisable().contains(field.getId());
+                                    }
+                                }
+                            }
+                        }
+
+                        boolean containsValuesDisabled = false;
+                        for (int j = 0; j < fieldActions.size(); j++) {
+                            FieldAction fieldAction = fieldActions.get(j);
+                            for (int i = 0; i < values.length; i++) {
+                                String value = values[i];
+                                if (fieldAction.getWhen() != null) {
+                                    if (fieldAction.getWhen().contains(value)) {
+                                        containsValuesDisabled = containsValuesDisabled || fieldAction.getDisable().contains(field.getId());
+                                    }
+                                }
+                            }
+                        }
+                        if (containsLastValuesDisabled && !containsValuesDisabled) {
+                            shouldEdit = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (hasCorrection(field, submission) || shouldEdit)
                 inflateFilledForEdit(holder, field, answer, submission);
             else
                 fillDataFor(holder, field, answer, true);
@@ -211,7 +259,8 @@ public class RecyclerViewHelper {
         final ActionWrapper selectedFieldAction = new ActionWrapper(field);
 
         if (answer != null) {
-            handleActions(fieldActions, answer, actionWrapper, selectedFieldAction);
+            String[] values = StringUtils.split(answer.getValues(), "\\\\");
+            handleActions(fieldActions, values, actionWrapper, selectedFieldAction);
         } else {
             for (int i = 0; i < fieldActions.size(); i++) {
                 FieldAction fieldAction = fieldActions.get(i);
@@ -230,8 +279,7 @@ public class RecyclerViewHelper {
         return actionWrapper;
     }
 
-    private static void handleActions(List<FieldAction> fieldActions, Answer answer, ActionWrapper actionWrapper, ActionWrapper selectedFieldAction) {
-        String[] values = StringUtils.split(answer.getValues(), "\\\\");
+    private static void handleActions(List<FieldAction> fieldActions, String[] values, ActionWrapper actionWrapper, ActionWrapper selectedFieldAction) {
         for (int j = 0; j < fieldActions.size(); j++) {
             FieldAction fieldAction = fieldActions.get(j);
             for (int i = 0; i < values.length; i++) {

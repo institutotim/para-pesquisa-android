@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import br.org.institutotim.parapesquisa.data.model.Answer;
@@ -38,6 +39,20 @@ public abstract class BaseSubmissionViewActivity extends BaseActivity {
         }
 
         return false;
+    }
+
+    public static void removeReadOnlyStatus(final Long fieldId) {
+        Set<Long> keys = fieldReadOnlyStatus.keySet();
+        for(Long key : keys) {
+            List<Pair<Long, Boolean>> pairs = fieldReadOnlyStatus.get(key);
+            List<Pair<Long, Boolean>> newPairs = new ArrayList<>(pairs);
+            for(Pair<Long, Boolean> pair : pairs) {
+                if (pair != null && pair.first.equals(fieldId)) {
+                    newPairs.remove(pair);
+                }
+            }
+            fieldReadOnlyStatus.put(key, newPairs);
+        }
     }
 
     protected void handleReadOnlyStatus() {
@@ -107,6 +122,7 @@ public abstract class BaseSubmissionViewActivity extends BaseActivity {
                 }
             }
         }
+
     }
 
     private void changeSectionVisibility(long fieldIdAction, List<Long> ids, boolean readOnly) {
@@ -122,6 +138,7 @@ public abstract class BaseSubmissionViewActivity extends BaseActivity {
         }
     }
 
+
     private void addReadOnlyStatus(long fieldIdAction, long fieldId, boolean readOnly) {
         List<Pair<Long, Boolean>> pairs = fieldReadOnlyStatus.get(fieldId);
 
@@ -136,6 +153,10 @@ public abstract class BaseSubmissionViewActivity extends BaseActivity {
         } else {
             pairs.set(position, pair);
         }
+
+        //if (readOnly) {
+            //TODO REMOVE ANSWER FOR FIELDID
+        //}
 
         fieldReadOnlyStatus.put(fieldId, pairs);
     }

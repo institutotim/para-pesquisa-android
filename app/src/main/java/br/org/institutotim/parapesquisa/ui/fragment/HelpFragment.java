@@ -18,6 +18,7 @@ import br.org.institutotim.parapesquisa.data.model.UserRole;
 import br.org.institutotim.parapesquisa.ui.activity.HelpActivity;
 import br.org.institutotim.parapesquisa.ui.adapter.AgentHelpAdapter;
 import br.org.institutotim.parapesquisa.ui.adapter.ModeratorHelpAdapter;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import br.org.institutotim.parapesquisa.util.ItemClickSupport;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,7 +45,7 @@ public class HelpFragment extends BaseFragment implements ItemClickSupport.OnIte
         ButterKnife.bind(this, view);
         getComponent().inject(this);
 
-        mList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mList.setLayoutManager(new WrapperLinearLayoutManager(getActivity()));
 
         mUser = mPreferences.getUser();
 

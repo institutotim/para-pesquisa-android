@@ -19,6 +19,7 @@
     <string name="text_sign_out">Sign Out</string>
     <string name="text_from_dates">From %1$s to %2$s</string>
     <string name="text_from">Since %s</string>
+    <string name="undefined_date">Undefined dates</string>
     <string name="text_days_remaining">days remaining</string>
     <string name="text_submissions_remaining">submissions remaining</string>
     <string name="action_sync">Sync</string>
@@ -67,6 +68,7 @@
     <string name="message_cancel_submission">Are you sure to cancel this submission?</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
+    <string name="error_not_users_enough_to_transfer">You need to have at least 2 users to transfer.</string>
     <string name="message_reschedule_submission">This submission was rescheduled to %s.</string>
     <string name="title_send_submission">Finish and send</string>
     <string name="message_send_submission_disclaimer">The submission will not be editable after sending, unless it is requested by the coordinator. Are you sure to proceed?</string>
@@ -179,6 +181,7 @@
     <string name="message_transfer_new_submissions">Are you sure to transfer all unfulfilled submissions from %1$s to %2$s?</string>
     <string name="message_transfer_status_submissions">Are you sure to transfer all %1$s submissions from %2$s to %3$s?</string>
     <string name="message_optional_feature">This feature can be not available in your survey. If this is the case, ignore this step.</string>
+    <string name="text_indefined_date">Undefined date</string>
 
     <string-array name="help_index_moderator">
         <item>Access to the surveys</item>

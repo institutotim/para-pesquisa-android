@@ -85,6 +85,10 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         setupCorrections(corrections);
     }
 
+    public void removeAnswer(Field field) {
+        mAnswers.remove(field);
+    }
+
     private void sortFields() {
         sort(mFields, (lhs, rhs) -> {
             if (lhs.getOrder() == null || rhs.getOrder() == null)
@@ -96,7 +100,10 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void setmFields(List<Field> mFields) {
-        this.mFields = mFields;
+        synchronized (mFields) {
+            this.mFields = mFields;
+			sortFields();
+        }
     }
 
     private void setupCorrections(List<SubmissionCorrection> correctionsList) {
@@ -200,7 +207,7 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         hideError(holder);
                     }
                 } else {
-                    fillDataForCorrection(holder, field, answer, mSubmission);
+                    fillDataForCorrection(holder, field, mAnswers.values(), answer, mSubmission);
                 }
             }
         } else {
@@ -220,6 +227,8 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public List<SubmissionCorrection> getCorrections() {
         return new ArrayList<>(corrections.values());
     }
+
+
 
     @Override
     public void onChange(Field field, Answer answer) {
@@ -248,38 +257,46 @@ public class FieldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public int validate() {
-        int valid = -1;
+        synchronized (mFields) {
+            int valid = -1;
 
-        if (disable || (correction && AgentSubmissionCorrectionActivity.correctionType == AgentSubmissionCorrectionActivity.CORRECTIONS_READ_ONLY))
-            return valid;
+            if (disable || (correction && AgentSubmissionCorrectionActivity.correctionType == AgentSubmissionCorrectionActivity.CORRECTIONS_READ_ONLY))
+                return valid;
 
-        errors.clear();
-        for (int i = 0; i < mFields.size(); i++) {
-            final Field field = mFields.get(i);
-            if (field.isReadOnly())
-                continue;
+            errors.clear();
+            for (int i = 0; i < mFields.size(); i++) {
+                final Field field = mFields.get(i);
+                if (field.isReadOnly())
+                    continue;
 
-            if (mSubmission != null && SubmissionStatus.WAITING_CORRECTION.equals(mSubmission.getStatus()) && !hasCorrection(field, mSubmission))
-                continue;
+                if (mSubmission != null && SubmissionStatus.WAITING_CORRECTION.equals(mSubmission.getStatus()) && !hasCorrection(field, mSubmission))
+                    continue;
 
-            int message = new FieldValidator().validate(field, mAnswers.get(field));
-            if (message != 0) {
-                errors.put(i, message);
-                if (valid == -1) {
-                    valid = i;
+                int message = new FieldValidator().validate(field, mAnswers.get(field));
+                if (message != 0) {
+                    errors.put(i, message);
+                    if (valid == -1) {
+                        valid = i;
+                    }
                 }
             }
+            if (valid != -1) {
+                notifyDataSetChanged();
+            }
+            return valid;
         }
-        notifyDataSetChanged();
-        return valid;
     }
 
     public void refreshDataExceptField(Field field) {
-        int size = mFields.size() - 1;
+        /*int size = mFields.size() - 1;
         for (int i = size; i >= 0; i--) {
             if (mFields.get(i).getId() != field.getId()) {
                 notifyItemChanged(i);
             }
+        }
+        */
+        synchronized (mFields) {
+            notifyDataSetChanged();
         }
     }
 }

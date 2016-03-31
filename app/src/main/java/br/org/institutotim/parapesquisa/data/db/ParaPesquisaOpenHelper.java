@@ -17,6 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -292,14 +294,14 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
                 .id(form.getId())
                 .name(form.getName())
                 .subtitle(form.getSubtitle())
-                .pubStart(form.getPubStart())
-                .pubEnd(form.getPubEnd())
                 .maxReschedules(form.getMaxReschedules())
                 .allowTransfer(form.isAllowTransfer())
                 .allowNewSubmissions(form.isAllowNewSubmissions())
                 .undefinedMode(form.isUndefinedMode())
                 .createdAt(form.getCreatedAt())
                 .updatedAt(form.getUpdatedAt())
+                .pubStart(form.getPubStart())
+                .pubEnd(form.getPubEnd())
                 .build();
         try {
             values.put(FormData.SECTIONS, mObjectMapper.writeValueAsString(form.getSections()));
@@ -533,7 +535,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
                     .quota(getLong(cursor, UserForm.QUOTA))
                     .user(getUser(getLong(cursor, UserForm.USER)))
                     .form(getForm(getLong(cursor, UserForm.FORM_ID)))
-                    .build());
+                   .build());
             cursor.moveToNext();
         }
         cursor.close();
@@ -1144,6 +1146,7 @@ public class ParaPesquisaOpenHelper extends SQLiteOpenHelper {
                     .type(getInt(cursor, Answer.TYPE))
                     .format(getInt(cursor, Answer.FORMAT))
                     .values(getString(cursor, Answer.VALUES))
+                    .lastValues(getString(cursor, Answer.LAST_VALUES))
                     .fieldId(getLong(cursor, Answer.FIELD_ID))
                     .build());
             cursor.moveToNext();

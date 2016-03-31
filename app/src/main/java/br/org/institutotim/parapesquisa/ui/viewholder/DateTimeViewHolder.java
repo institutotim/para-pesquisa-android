@@ -89,6 +89,7 @@ public class DateTimeViewHolder extends BaseViewHolder {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(getValue())
+                .lastValues("")
                 .build();
     }
 

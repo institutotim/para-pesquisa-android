@@ -33,7 +33,11 @@ public class DbUtils {
     }
 
     public static DateTime getDateTime(Cursor cursor, String columnName) {
-        return new DateTime(new Date(cursor.getLong(cursor.getColumnIndexOrThrow(columnName))));
+        long datetime = cursor.getLong(cursor.getColumnIndexOrThrow(columnName));
+        if (datetime == 0) {
+            return null;
+        }
+        return new DateTime(new Date(datetime));
     }
 
     private DbUtils() {

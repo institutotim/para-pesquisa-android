@@ -2,6 +2,10 @@ package br.org.institutotim.parapesquisa.ui.helper;
 
 import android.util.SparseArray;
 
+import org.joda.time.DateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import br.org.institutotim.parapesquisa.data.db.ParaPesquisaOpenHelper;
@@ -10,6 +14,7 @@ import br.org.institutotim.parapesquisa.data.model.Summary;
 import br.org.institutotim.parapesquisa.data.model.UserForm;
 
 public class SummaryHelper {
+
 
     private final ParaPesquisaOpenHelper mHelper;
 
@@ -29,9 +34,18 @@ public class SummaryHelper {
     }
 
     private Summary extractSummary(UserForm form) {
+        DateTime dateTime = form.getForm().getPubEnd();
+        if (dateTime == null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                dateTime = new DateTime(sdf.parse(Summary.NULL_DATE));
+            } catch (ParseException e) {
+                dateTime = DateTime.now().plusDays(999);
+            }
+        }
         return Summary.builder()
                 .approved((int) mHelper.getSubmissionsCount(form.getFormId(), SubmissionStatus.APPROVED))
-                .date(form.getForm().getPubEnd())
+                .date(dateTime)
                 .quota(form.getQuota())
                 .remaining((int) mHelper.getRemainingSurveys(form.getFormId()))
                 .waitingCorrection((int) mHelper.getSubmissionsCount(form.getFormId(), SubmissionStatus.WAITING_CORRECTION))

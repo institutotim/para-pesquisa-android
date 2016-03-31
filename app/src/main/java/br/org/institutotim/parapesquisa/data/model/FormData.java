@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Date;
 import java.util.List;
 
 import auto.parcel.AutoParcel;
@@ -20,6 +21,7 @@ import br.org.institutotim.parapesquisa.util.DateUtils;
 @AutoParcel
 @JsonDeserialize(builder = AutoParcel_FormData.Builder.class)
 public abstract class FormData implements Parcelable {
+    public static final String NULL_DATE = "2099-12-31";
 
     public static final String TABLE = "forms";
 
@@ -84,18 +86,22 @@ public abstract class FormData implements Parcelable {
     public abstract List<Section> getSections();
 
     public String getSubtitleAndPubDate(Context context) {
-        DateTime startTime = getPubStart() != null ? getPubStart() : getCreatedAt();
-
         DateTimeFormatter format = DateUtils.getShortDateInstanceWithoutYears();
+
+        DateTime startTime = getPubStart();
+        String startDate = startTime == null ? context.getString(R.string.text_indefined_date) : format.print(startTime);
+
+        DateTime endTime = getPubEnd();
+        String endDate = endTime == null ? context.getString(R.string.text_indefined_date) : format.print(endTime);
+
+        String subtitle = (getSubtitle() != null ? getSubtitle() + " | " : "");
         if (getPubEnd() != null) {
-            return (getSubtitle() != null ? getSubtitle() + " | " :
-                    "") + context.getString(R.string.text_from_dates,
-                    format.print(startTime), format.print(getPubEnd()));
+            subtitle += context.getString(R.string.text_from_dates, startDate,
+                    endDate);
         } else {
-            return (getSubtitle() != null ? getSubtitle() + " | " :
-                    "") + context.getString(R.string.text_from,
-                    format.print(startTime));
+            subtitle += context.getString(R.string.text_from, startDate);
         }
+        return subtitle;
     }
 
     public boolean hasExtraData() {
@@ -177,14 +183,18 @@ public abstract class FormData implements Parcelable {
         }
 
         public ContentBuilder pubStart(DateTime pubStart) {
-            if (pubStart != null) {
+            if (pubStart == null) {
+                values.putNull(PUB_START);
+            } else{
                 values.put(PUB_START, pubStart.toDate().getTime());
             }
             return this;
         }
 
         public ContentBuilder pubEnd(DateTime pubEnd) {
-            if (pubEnd != null) {
+            if (pubEnd == null) {
+                values.putNull(PUB_END);
+            } else {
                 values.put(PUB_END, pubEnd.toDate().getTime());
             }
             return this;

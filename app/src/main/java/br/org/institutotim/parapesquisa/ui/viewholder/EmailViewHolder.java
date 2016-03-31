@@ -62,6 +62,7 @@ public class EmailViewHolder extends BaseViewHolder {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value)
+                .lastValues("")
                 .build();
     }
 

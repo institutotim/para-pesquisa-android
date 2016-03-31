@@ -106,6 +106,7 @@ public class OrderedListViewHolder extends BaseViewHolder {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
                 .values(TextUtils.join("\\\\", values))
+                .lastValues("")
                 .build();
     }
 

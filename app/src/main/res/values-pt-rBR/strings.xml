@@ -19,6 +19,7 @@
     <string name="text_sign_out">Logout</string>
     <string name="text_from_dates">De %1$s a %2$s</string>
     <string name="text_from">A partir de %s</string>
+    <string name="undefined_date">Datas indefinidas</string>
     <string name="text_days_remaining">dias restantes</string>
     <string name="text_submissions_remaining">pesquisas restantes</string>
     <string name="action_sync">Sincronizar</string>
@@ -114,6 +115,7 @@
     <string name="message_all_survey_takers">Todos os pesquisadores (%d)</string>
     <string name="message_search_surveys">Buscar pesquisas</string>
     <string name="title_global_report">Relatório Global</string>
+    <string name="text_indefined_date">Data indefinida</string>
 
     <string-array name="edit_mode">
         <item>Visualizar</item>
@@ -178,7 +180,7 @@
     <string name="message_transfer_new_submissions">Tem certeza de que deseja transferir todas as pesquisas não realizadas de %1$s para %2$s?</string>
     <string name="message_transfer_status_submissions">Tem certeza de que deseja transferir todas as submissões %1$s de %2$s para %3$s?</string>
     <string name="message_transfer_submissions">Tem certeza de que deseja transferir todas as submissões de %1$s para %2$s?</string>
-
+    <string name="error_not_users_enough_to_transfer">É necessário pelo menos 2 pesquisadores para realizar uma transferência.</string>
     <string-array name="help_index_moderator">
         <item>Acesso às pesquisas</item>
         <item>Relatórios</item>

@@ -550,6 +550,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
                 .values(TextUtils.join("\\\\", values))
+                .lastValues("")
                 .build();
     }
 
@@ -581,6 +582,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
                 .values(TextUtils.join("\\\\", values))
+                .lastValues("")
                 .build();
     }
 
@@ -594,6 +596,7 @@ public class FieldHelper {
                     .type(Answer.TYPE_STRING)
                     .format(Answer.FORMAT_ARRAY)
                     .values("")
+                    .lastValues("")
                     .build();
         }
 
@@ -602,6 +605,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
                 .values(option.getValue())
+                .lastValues("")
                 .build();
     }
 
@@ -633,6 +637,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_ARRAY)
                 .values(selected)
+                .lastValues("")
                 .build();
     }
 
@@ -646,6 +651,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(textField.getTag().toString())
+                .lastValues("")
                 .build();
     }
 
@@ -668,6 +674,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value) // FIXME maybe return double?
+                .lastValues("")
                 .build();
     }
 
@@ -681,6 +688,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_NUMBER)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value)
+                .lastValues("")
                 .build();
     }
 
@@ -696,6 +704,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value.replace(".", "").replace("-", ""))
+                .lastValues("")
                 .build();
     }
 
@@ -709,6 +718,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value)
+                .lastValues("")
                 .build();
     }
 
@@ -724,6 +734,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value)
+                .lastValues("")
                 .build();
     }
 
@@ -741,6 +752,7 @@ public class FieldHelper {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value)
+                .lastValues("")
                 .build();
     }
 

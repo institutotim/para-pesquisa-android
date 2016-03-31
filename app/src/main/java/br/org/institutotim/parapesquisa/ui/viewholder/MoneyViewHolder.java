@@ -75,6 +75,7 @@ public class MoneyViewHolder extends BaseViewHolder {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(value) // FIXME maybe return double?
+                .lastValues("")
                 .build();
     }
 

@@ -192,7 +192,9 @@ public class SubmissionHelper {
 
     private void replaceAnswer(Answer newAnswer, List<Answer> currentAnswers) {
         Answer oldAnswer = null;
-
+        if (newAnswer == null) {
+            return;
+        }
         for (int i = 0; i < currentAnswers.size(); i++) {
             Answer answer = currentAnswers.get(i);
             if (newAnswer.getFieldId() == answer.getFieldId()) {

@@ -59,6 +59,7 @@ public class NumberViewHolder extends BaseViewHolder {
                 .type(Answer.TYPE_NUMBER)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(this.field.getText().toString())
+                .lastValues("")
                 .build();
     }
 }

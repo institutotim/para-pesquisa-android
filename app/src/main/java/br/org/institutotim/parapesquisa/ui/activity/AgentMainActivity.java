@@ -41,6 +41,7 @@ import br.org.institutotim.parapesquisa.ui.fragment.AboutFragment;
 import br.org.institutotim.parapesquisa.ui.fragment.AgentFormsFragment;
 import br.org.institutotim.parapesquisa.ui.fragment.HelpFragment;
 import br.org.institutotim.parapesquisa.ui.helper.NotificationHelper;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -89,7 +90,7 @@ public class AgentMainActivity extends BaseActivity implements NavigationView.On
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         mToolbar.setNavigationOnClickListener(v -> mDrawerLayout.openDrawer(GravityCompat.START));
 
-        mNotifications.setLayoutManager(new LinearLayoutManager(this));
+        mNotifications.setLayoutManager(new WrapperLinearLayoutManager(this));
 
         setupNavigationDrawerHeader();
 

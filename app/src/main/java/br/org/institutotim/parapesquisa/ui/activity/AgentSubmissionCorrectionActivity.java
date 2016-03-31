@@ -98,22 +98,6 @@ public class AgentSubmissionCorrectionActivity extends BaseSubmissionViewActivit
 
     private DateTime mTimestamp = DateTime.now();
     private Runnable runnable;
-    private static Map<Long, List<Pair<Long, Boolean>>> fieldReadOnlyStatus = new HashMap<>();
-
-    public static Boolean getReadOnlyStatus(final Long fieldId) {
-        final List<Pair<Long, Boolean>> pairs = fieldReadOnlyStatus.get(fieldId);
-
-        if (pairs == null || pairs.isEmpty())
-            return false;
-
-        for (Pair<Long, Boolean> pair : pairs) {
-            if (pair != null && pair.second) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,9 +130,10 @@ public class AgentSubmissionCorrectionActivity extends BaseSubmissionViewActivit
         List<String> fields = new ArrayList<>();
         for (int i = 0; i < mForm.getSections().size(); i++) {
             final Section section = mForm.getSections().get(i);
-            for (int y = 0; y < section.getFields().size(); y++) {
-                final Field field = section.getFields().get(y);
-                if (RecyclerViewHelper.hasCorrection(field, mSubmission)) {
+            List<Field> mFields = section.getFields();
+            for (int y = 0; y < mFields.size(); y++) {
+                final Field field = mFields.get(y);
+                if (RecyclerViewHelper.hasCorrection(field, mSubmission) && !getReadOnlyStatus(field.getId())) {
                     fieldList.add(new Pair<>(i, field));
                     fields.add(field.getLabel());
                 }

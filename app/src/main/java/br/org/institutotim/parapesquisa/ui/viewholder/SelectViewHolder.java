@@ -27,6 +27,8 @@ public class SelectViewHolder extends BaseViewHolder{
     @Bind(R.id.field_select)
     Spinner spinner;
 
+    private String lastValue;
+
     public SelectViewHolder(View itemView) {
         super(itemView);
         bind(this, itemView);
@@ -78,22 +80,27 @@ public class SelectViewHolder extends BaseViewHolder{
     @Override
     public Answer extractAnswer() {
         FieldOption option = (FieldOption) spinner.getSelectedItem();
-
+        Answer answer;
         if (option == null) {
-            return Answer.builder()
+            answer = Answer.builder()
                     .fieldId(getField().getId())
                     .type(Answer.TYPE_STRING)
                     .format(Answer.FORMAT_ARRAY)
                     .values("")
+                    .lastValues(lastValue == null ? "" : lastValue)
                     .build();
+            lastValue = null;
+        } else {
+            answer = Answer.builder()
+                    .fieldId(getField().getId())
+                    .type(Answer.TYPE_STRING)
+                    .format(Answer.FORMAT_ARRAY)
+                    .values(option.getValue())
+                    .lastValues(lastValue == null ? "" : lastValue)
+                    .build();
+            lastValue = option.getValue();
         }
-
-        return Answer.builder()
-                .fieldId(getField().getId())
-                .type(Answer.TYPE_STRING)
-                .format(Answer.FORMAT_ARRAY)
-                .values(option.getValue())
-                .build();
+        return answer;
     }
 
 }

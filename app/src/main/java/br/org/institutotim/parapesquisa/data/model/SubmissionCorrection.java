@@ -3,7 +3,9 @@ package br.org.institutotim.parapesquisa.data.model;
 import android.content.ContentValues;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -39,6 +41,22 @@ public abstract class SubmissionCorrection implements Parcelable {
     @Nullable
     @JsonProperty("created_at")
     public abstract DateTime getCreatedAt();
+
+    @Override
+    @JsonIgnore
+    public boolean equals(Object o) {
+        if (!(o instanceof SubmissionCorrection))
+            return false;
+
+        SubmissionCorrection correction = (SubmissionCorrection) o;
+        if (correction.getFieldId() == getFieldId() && correction.getUserId() == getUserId()) {
+            if (TextUtils.equals(correction.getMessage(), getMessage())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @AutoParcel.Builder
     public static abstract class Builder {

@@ -35,6 +35,7 @@ import br.org.institutotim.parapesquisa.ui.adapter.AgentSubmissionAdapter;
 import br.org.institutotim.parapesquisa.ui.adapter.ModeratorSubmissionAdapter;
 import br.org.institutotim.parapesquisa.ui.decorator.DividerItemDecoration;
 import br.org.institutotim.parapesquisa.ui.listener.EndlessRecyclerOnScrollListener;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import br.org.institutotim.parapesquisa.util.ItemClickSupport;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -85,7 +86,7 @@ public class SubmissionsFragment extends BaseFragment implements ItemClickSuppor
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new WrapperLinearLayoutManager(getActivity());
         mList.setLayoutManager(layoutManager);
         mList.addItemDecoration(new DividerItemDecoration(getContext()));
         mList.setItemAnimator(new DefaultItemAnimator());

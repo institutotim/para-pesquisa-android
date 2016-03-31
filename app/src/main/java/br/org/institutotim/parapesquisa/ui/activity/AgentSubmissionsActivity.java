@@ -36,6 +36,7 @@ import br.org.institutotim.parapesquisa.service.AgentUpdateService;
 import br.org.institutotim.parapesquisa.ui.adapter.SubmissionsPagerAdapter;
 import br.org.institutotim.parapesquisa.ui.helper.NotificationHelper;
 import br.org.institutotim.parapesquisa.ui.helper.SubmissionHelper;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import br.org.institutotim.parapesquisa.util.DateUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -107,7 +108,7 @@ public class AgentSubmissionsActivity extends BaseActivity implements View.OnCli
             actionBar.setSubtitle(mForm.getForm().getSubtitleAndPubDate(this));
         }
 
-        mNotifications.setLayoutManager(new LinearLayoutManager(this));
+        mNotifications.setLayoutManager(new WrapperLinearLayoutManager(this));
     }
 
     @Override

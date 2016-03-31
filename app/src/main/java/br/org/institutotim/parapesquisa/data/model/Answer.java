@@ -36,9 +36,10 @@ public abstract class Answer implements Parcelable {
     public static final String TYPE = "answer_type";
     public static final String VALUES = "answer_values";
     public static final String USER_SUBMISSION_ID = "user_submission_id";
+    public static final String LAST_VALUES = "last_values";
 
     public static final String[] COLUMNS = {
-            FIELD_ID, FORMAT, TYPE, VALUES
+            FIELD_ID, FORMAT, TYPE, VALUES, LAST_VALUES
     };
 
     public abstract long getFieldId();
@@ -48,6 +49,8 @@ public abstract class Answer implements Parcelable {
     public abstract int getType();
 
     public abstract String getValues();
+
+    public abstract String getLastValues();
 
     @JsonValue
     public Object[] getValue() {
@@ -84,6 +87,8 @@ public abstract class Answer implements Parcelable {
         public abstract Builder type(int type);
 
         public abstract Builder values(String values);
+
+        public abstract Builder lastValues(String values);
 
         public abstract Answer build();
     }
@@ -136,6 +141,7 @@ public abstract class Answer implements Parcelable {
                     .format(format)
                     .type(type)
                     .values(value)
+                    .lastValues("")
                     .build();
         }
     }
@@ -161,6 +167,11 @@ public abstract class Answer implements Parcelable {
 
         public ContentBuilder values(String values) {
             contentValues.put(VALUES, values);
+            return this;
+        }
+
+        public ContentBuilder lastValues(String values) {
+            contentValues.put(LAST_VALUES, values);
             return this;
         }
 

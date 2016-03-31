@@ -77,6 +77,7 @@ public class PrivateViewHolder extends BaseViewHolder {
                 .type(Answer.TYPE_STRING)
                 .format(Answer.FORMAT_SINGLE_VALUE)
                 .values(this.field.getText().toString())
+                .lastValues("")
                 .build();
     }
 

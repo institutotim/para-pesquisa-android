@@ -111,46 +111,40 @@ public class AgentUpdateService extends IntentService {
         for (int i = 0; i < submissions.size(); i++) {
             UserSubmission submission = submissions.get(i);
             submissionId = submission.getId();
-            if (submission.getStatus() != null && (submission.getStatus().equals(SubmissionStatus.CANCELLED) ||
-                    submission.getStatus().equals(SubmissionStatus.RESCHEDULED))) {
-                if (getSubmissionId(submission) == null) {
-                    submission = submission.newInstanceWithId(api.sendSubmission(submission.getFormId(), Submission.builder()
-                            .id(getSubmissionId(submission))
-                            .answers(submission.getAnswers())
-                            .startedAt(submission.getLatestLog() != null ? submission.getLatestLog().getWhen() : DateTime.now())
-                            .build()).getResponse().getId());
-                    helper.updatePendingSubmission(submission);
-                }
-
-                if (submission.getStatus() != null) {
-                    switch (submission.getStatus()) {
-                        case CANCELLED:
-                            api.reschedule(submission.getFormId(), getSubmissionId(submission), new RescheduleRequest(helper.getCancelReasonId(submissionId)));
-                            break;
-                        case RESCHEDULED:
-                            Pair<DateTime, Long> pair = helper.getRescheduleReasonBySubmissionId(submissionId);
-                            api.reschedule(submission.getFormId(), getSubmissionId(submission), new RescheduleRequest(pair.first, pair.second));
-                            break;
-                    }
-                }
-            } else if ((submission.getCorrections() != null && !submission.getCorrections().isEmpty()) || getSubmissionId(submission) != null) {
+            long realSubmissionId = -1;
+            if (submission.getStatus() == null || submission.getStatus().equals(SubmissionStatus.WAITING_CORRECTION)) {
                 submission = submission.updateStatus(SubmissionStatus.WAITING_APPROVAL);
+            }
+            if (getSubmissionId(submission) == null) {
+                realSubmissionId = api.sendSubmission(submission.getFormId(), Submission.builder()
+                        .id(getSubmissionId(submission))
+                        .answers(submission.getAnswers())
+                        .startedAt(submission.getLatestLog() != null ? submission.getLatestLog().getWhen() : DateTime.now())
+                        .build()).getResponse().getId();
+                submission = submission.newInstanceWithId(realSubmissionId);
+            } else {
                 SubmissionUpdate update = new SubmissionUpdate();
                 update.setAnswers(submission.getAnswers());
                 update.setStatus(submission.getStatus());
                 api.updateSubmission(submission.getFormId(), getSubmissionId(submission), update);
-            } else {
-                api.sendSubmission(submission.getFormId(), Submission.builder()
-                        .id(getSubmissionId(submission))
-                        .answers(submission.getAnswers())
-                        .startedAt(submission.getLatestLog() != null ? submission.getLatestLog().getWhen() : DateTime.now())
-                        .build());
             }
 
+            switch (submission.getStatus()) {
+                case CANCELLED:
+                    long reasonId = helper.getCancelReasonId(submissionId) == -1 ? helper.getCancelReasonId(realSubmissionId) : helper.getCancelReasonId(submissionId);
+                    api.reschedule(submission.getFormId(), getSubmissionId(submission), new RescheduleRequest(reasonId));
+                    break;
+                case RESCHEDULED:
+                    Pair<DateTime, Long> pair = helper.getRescheduleReasonBySubmissionId(submissionId) == null ?
+                            helper.getRescheduleReasonBySubmissionId(realSubmissionId) : helper.getRescheduleReasonBySubmissionId(submissionId);
+                    api.reschedule(submission.getFormId(), getSubmissionId(submission), new RescheduleRequest(pair.first, pair.second));
+                    break;
+            }
             helper.removePendingSubmission(submissionId);
         }
         helper.clearPendingSubmissions();
     }
+
 
     private void updateUserData() {
         SingleResponse<UserData> response = api.getUserData(user.getId());

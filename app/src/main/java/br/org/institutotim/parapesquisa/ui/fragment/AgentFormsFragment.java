@@ -19,6 +19,7 @@ import br.org.institutotim.parapesquisa.data.event.SyncCompletedEvent;
 import br.org.institutotim.parapesquisa.data.model.UserForm;
 import br.org.institutotim.parapesquisa.ui.activity.AgentSubmissionsActivity;
 import br.org.institutotim.parapesquisa.ui.adapter.FormAdapter;
+import br.org.institutotim.parapesquisa.ui.widget.WrapperLinearLayoutManager;
 import br.org.institutotim.parapesquisa.util.ItemClickSupport;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,7 +53,7 @@ public class AgentFormsFragment extends BaseFragment implements ItemClickSupport
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new WrapperLinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
 
         ItemClickSupport click = ItemClickSupport.addTo(mRecyclerView);

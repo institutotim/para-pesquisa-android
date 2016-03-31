@@ -63,7 +63,11 @@ public class StatsHelper {
         Stats stats = new Stats();
 
         FormData form = mHelper.getForm(formId);
-        stats.setRemainingDays(Math.max(0, Days.daysBetween(DateTime.now(), new DateTime(form.getPubEnd())).getDays() + 1));
+        if (form.getPubEnd() != null) {
+            stats.setRemainingDays(Math.max(0, Days.daysBetween(DateTime.now(), new DateTime(form.getPubEnd())).getDays() + 1));
+        } else {
+            stats.setRemainingDays(999);
+        }
 
         Set<Long> users = new HashSet<>();
         int goal = 0;

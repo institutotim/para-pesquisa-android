@@ -187,7 +187,9 @@ public class AgentFormActivity extends BaseSubmissionViewActivity implements Vie
         if (answers != null && !answers.isEmpty() && shouldPersist(answers)) {
             UserSubmission submission = mSubmissionHelper.extractAnswersBySections(mTimestamp, answers, mSubmission,
                     mContainer.getCurrentItem());
-
+            if (mSubmission != null && mSubmission.getId() != null) {
+                mHelper.removeSubmission(mForm.getId(), mSubmission.getId());
+            }
             mHelper.setSubmissionInProgress(mForm.getId(), submission);
         }
     }
