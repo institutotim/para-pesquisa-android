@@ -63,7 +63,7 @@ public class StatsHelper {
         Stats stats = new Stats();
 
         FormData form = mHelper.getForm(formId);
-        if (form.getPubEnd() != null) {
+        if (form != null && form.getPubEnd() != null) {
             stats.setRemainingDays(Math.max(0, Days.daysBetween(DateTime.now(), new DateTime(form.getPubEnd())).getDays() + 1));
         } else {
             stats.setRemainingDays(999);

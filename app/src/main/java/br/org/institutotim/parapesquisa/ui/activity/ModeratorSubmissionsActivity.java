@@ -98,6 +98,9 @@ public class ModeratorSubmissionsActivity extends BaseActivity implements View.O
         }
 
         form = getIntent().getParcelableExtra(USER_FORM);
+		if (form == null || form.getForm() == null) {
+			onBackPressed();
+		}
         getSupportActionBar().setTitle(form.getForm().getName());
         getSupportActionBar().setSubtitle(form.getForm().getSubtitleAndPubDate(this));
 

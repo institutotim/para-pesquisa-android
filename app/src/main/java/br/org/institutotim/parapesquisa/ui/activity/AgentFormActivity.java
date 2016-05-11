@@ -88,7 +88,9 @@ public class AgentFormActivity extends BaseSubmissionViewActivity implements Vie
         mSubmission = getIntent().getParcelableExtra(BaseActivity.SUBMISSION_EXTRA);
         mForm = getIntent().getParcelableExtra(BaseActivity.FORM_EXTRA);
 
-        mHelper.removeSubmissionInProgress(mForm.getId());
+		if (mForm != null) {
+		    mHelper.removeSubmissionInProgress(mForm.getId());
+	    }
 
         if (mSubmission != null) {
             mHelper.removePendingSubmission(mSubmission);
